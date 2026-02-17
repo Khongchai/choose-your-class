@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { CharacterClass, useGame } from "@/context/GameContext";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useGame, CharacterClass } from "@/context/GameContext";
+import { useState } from "react";
 
 const classes: { id: CharacterClass; label: string; emoji: string }[] = [
   { id: "warrior", label: "Warrior", emoji: "⚔️" },
@@ -26,11 +27,19 @@ export default function ChooseClass() {
     <div className="flex min-h-dvh flex-col items-center justify-center px-6 py-12">
       <div className="w-full max-w-md flex flex-col items-center gap-10">
         {/* Title */}
-        <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-dark-brown">
-            CHOOSE YOUR CLASS
-          </h1>
-          <p className="mt-4 text-warm-gray text-base leading-relaxed">
+        <div className="flex flex-col items-center gap-4">
+          <Image
+            src="/title-image.png"
+            alt="Choose Your Class"
+            className="pointer-events-none select-none"
+            width={320}
+            height={160}
+            style={{
+              scale: 2,
+            }}
+            priority
+          />
+          <p className="text-warm-gray text-base leading-relaxed text-center">
             Enter a musical quest to discover your favourite ways to learn
           </p>
         </div>

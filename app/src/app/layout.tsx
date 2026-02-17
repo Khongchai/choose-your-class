@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import localFont from "next/font/local";
 import { GameProvider } from "@/context/GameContext";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const selawik = localFont({
+  src: [
+    { path: "../fonts/selawkl.woff2", weight: "300" },
+    { path: "../fonts/selawksl.woff2", weight: "350" },
+    { path: "../fonts/selawk.woff2", weight: "400" },
+    { path: "../fonts/selawksb.woff2", weight: "600" },
+    { path: "../fonts/selawkb.woff2", weight: "700" },
+  ],
+  variable: "--font-selawik",
 });
 
 export const metadata: Metadata = {
@@ -21,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} antialiased`}>
+      <body className={`${selawik.variable} antialiased`}>
         <GameProvider>{children}</GameProvider>
       </body>
     </html>
