@@ -21,14 +21,13 @@ export default function GenderPage() {
   const handleSelect = (gender: Gender) => {
     setSelected(gender);
     setGender(gender);
-    // Short delay so user sees the selection before navigating
     setTimeout(() => {
       router.push("/age");
     }, 300);
   };
 
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center px-6 py-12 sm:py-16">
+    <div className="animate-page flex min-h-dvh flex-col items-center justify-center px-6 py-12 sm:py-16">
       <div className="w-full max-w-sm sm:max-w-md flex flex-col items-center gap-8 sm:gap-10">
         {/* Info text */}
         <p className="text-dark-brown/60 text-sm sm:text-base text-center leading-relaxed">
@@ -47,15 +46,15 @@ export default function GenderPage() {
         </div>
 
         {/* Options */}
-        <div className="grid grid-cols-2 gap-4 w-full">
+        <div className="stagger grid grid-cols-2 gap-4 w-full">
           {genderOptions.map((opt) => (
             <button
               key={opt.id}
               onClick={() => handleSelect(opt.id)}
-              className={`py-4 sm:py-5 px-4 rounded-lg text-base sm:text-lg font-semibold text-center transition-all duration-200 cursor-pointer ${
+              className={`animate-item py-4 sm:py-5 px-4 rounded-lg text-base sm:text-lg font-semibold text-center transition-all duration-200 cursor-pointer ${
                 selected === opt.id
                   ? "bg-dark-brown text-peach scale-95"
-                  : "bg-cream/80 text-dark-brown hover:bg-cream active:scale-95"
+                  : "bg-cream/80 text-dark-brown hover:bg-cream hover:scale-105 active:scale-95"
               }`}
             >
               {opt.label}

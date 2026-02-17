@@ -17,7 +17,7 @@ export default function ConsentPage() {
   };
 
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center px-6 py-12 sm:py-16">
+    <div className="animate-page flex min-h-dvh flex-col items-center justify-center px-6 py-12 sm:py-16">
       <div className="w-full max-w-md sm:max-w-xl flex flex-col items-center gap-8 sm:gap-10">
         {/* Header */}
         <h1 className="text-2xl sm:text-3xl font-bold text-dark-brown text-center">
@@ -70,16 +70,16 @@ export default function ConsentPage() {
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-4 sm:gap-5">
+        <div className="stagger flex gap-4 sm:gap-5">
           <button
             onClick={handleAgree}
-            className="px-8 sm:px-12 py-3.5 sm:py-4 rounded-lg text-base sm:text-lg font-semibold tracking-wide transition-all duration-200 cursor-pointer bg-dark-brown text-peach hover:opacity-90 active:scale-95"
+            className="animate-item px-8 sm:px-12 py-3.5 sm:py-4 rounded-lg text-base sm:text-lg font-semibold tracking-wide transition-all duration-200 cursor-pointer bg-dark-brown text-peach hover:opacity-90 hover:scale-105 active:scale-95"
           >
             I AGREE - LET&apos;S PLAY
           </button>
           <button
             onClick={handleDecline}
-            className="px-8 sm:px-12 py-3.5 sm:py-4 rounded-lg text-base sm:text-lg font-semibold tracking-wide transition-all duration-200 cursor-pointer bg-dark-brown text-peach hover:opacity-90 active:scale-95"
+            className="animate-item px-8 sm:px-12 py-3.5 sm:py-4 rounded-lg text-base sm:text-lg font-semibold tracking-wide transition-all duration-200 cursor-pointer bg-dark-brown text-peach hover:opacity-90 hover:scale-105 active:scale-95"
           >
             NO THANKS
           </button>

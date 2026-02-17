@@ -32,7 +32,7 @@ export default function AgePage() {
   };
 
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center px-6 py-12 sm:py-16">
+    <div className="animate-page flex min-h-dvh flex-col items-center justify-center px-6 py-12 sm:py-16">
       <div className="w-full max-w-sm sm:max-w-md flex flex-col items-center gap-8 sm:gap-10">
         {/* Info text */}
         <p className="text-dark-brown/60 text-sm sm:text-base text-center leading-relaxed">
@@ -68,7 +68,7 @@ export default function AgePage() {
         {/* Next button */}
         <button
           onClick={handleSubmit}
-          className="px-16 sm:px-20 py-3.5 sm:py-4 rounded-lg text-lg sm:text-xl font-semibold tracking-wide transition-all duration-200 cursor-pointer bg-dark-brown text-peach hover:opacity-90 active:scale-95"
+          className="px-16 sm:px-20 py-3.5 sm:py-4 rounded-lg text-lg sm:text-xl font-semibold tracking-wide transition-all duration-200 cursor-pointer bg-dark-brown text-peach hover:opacity-90 hover:scale-105 active:scale-95"
         >
           Next
         </button>
