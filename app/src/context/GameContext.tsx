@@ -51,6 +51,7 @@ interface GameContextType {
   setSkillLevel: (level: SkillLevel) => void;
   setConsentGiven: (consent: boolean) => void;
   addSelfAssessmentAnswer: (answer: SelfAssessmentAnswer) => void;
+  setSelfAssessmentAnswers: (answers: SelfAssessmentAnswer[]) => void;
   addPerformanceAnswer: (answer: PerformanceAnswer) => void;
   resetState: () => void;
 }
@@ -107,6 +108,10 @@ export function GameProvider({ children }: { children: ReactNode }) {
     }));
   };
 
+  const setSelfAssessmentAnswers = (answers: SelfAssessmentAnswer[]) => {
+    setState((prev) => ({ ...prev, selfAssessmentAnswers: answers }));
+  };
+
   const addPerformanceAnswer = (answer: PerformanceAnswer) => {
     setState((prev) => ({
       ...prev,
@@ -130,6 +135,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
         setSkillLevel,
         setConsentGiven,
         addSelfAssessmentAnswer,
+        setSelfAssessmentAnswers,
         addPerformanceAnswer,
         resetState,
       }}
