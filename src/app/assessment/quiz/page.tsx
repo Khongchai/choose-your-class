@@ -78,7 +78,15 @@ export default function SelfAssessmentQuizPage() {
         }, 400);
       }
     },
-    [answers, currentIndex, isLast, goTo, shuffledQuestions, setSelfAssessmentAnswers, router],
+    [
+      answers,
+      currentIndex,
+      isLast,
+      goTo,
+      shuffledQuestions,
+      setSelfAssessmentAnswers,
+      router,
+    ],
   );
 
   const handleBack = useCallback(() => {
@@ -195,7 +203,7 @@ export default function SelfAssessmentQuizPage() {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
-            fill="currentColor"
+            fill="currentColorWarrior"
             className="w-5 h-5"
           >
             <path

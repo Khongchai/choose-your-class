@@ -3,11 +3,11 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-const classes: { id: string; label: string; emoji: string }[] = [
-  { id: "warrior", label: "Warrior", emoji: "⚔️" },
-  { id: "druid", label: "Druid", emoji: "🌿" },
-  { id: "mage", label: "Mage", emoji: "✨" },
-  { id: "alchemist", label: "Alchemist", emoji: "⚗️" },
+const classes = [
+  { id: "warrior", label: "Warrior", image: "/warrior.jpg" },
+  { id: "druid", label: "Druid", image: "/druid.jpg" },
+  { id: "mage", label: "Mage", image: "/mage.jpg" },
+  { id: "alchemist", label: "Alchemist", image: "/alchemist.jpg" },
 ];
 
 export default function ChooseClass() {
@@ -39,16 +39,16 @@ export default function ChooseClass() {
       {/* Class icons */}
       <div className="flex items-center justify-center gap-6 sm:gap-10 my-12 sm:my-16">
         {classes.map((cls) => (
-          <div
-            key={cls.id}
-            className="flex flex-col items-center gap-3"
-          >
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-dark-brown/15 flex items-center justify-center text-2xl sm:text-3xl transition-colors duration-200 hover:bg-dark-brown/25">
-              {cls.emoji}
+          <div key={cls.id} className="flex flex-col items-center gap-3">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden transition-opacity duration-200 hover:opacity-80">
+              <Image
+                src={cls.image}
+                alt={cls.label}
+                width={80}
+                height={80}
+                className="w-full h-full object-cover"
+              />
             </div>
-            <span className="text-dark-brown/80 text-xs sm:text-sm font-semibold">
-              {cls.label}
-            </span>
           </div>
         ))}
       </div>
