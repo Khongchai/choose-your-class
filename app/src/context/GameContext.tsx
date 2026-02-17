@@ -14,8 +14,28 @@ interface PerformanceAnswer {
   score: 0 | 1;
 }
 
+type Gender = "male" | "female" | "non-binary" | "prefer-not-to-say";
+type MusicMajor =
+  | "classical"
+  | "jazz"
+  | "thai-traditional"
+  | "popular-contemporary"
+  | "non-music";
+type SkillLevel =
+  | "novice"
+  | "intermediate"
+  | "advanced"
+  | "professional"
+  | "expert"
+  | "master";
+
 interface GameState {
   nickname: string;
+  gender: Gender | null;
+  age: number | null;
+  instrument: string;
+  musicMajor: MusicMajor | null;
+  skillLevel: SkillLevel | null;
   consentGiven: boolean;
   selfAssessmentAnswers: SelfAssessmentAnswer[];
   performanceAnswers: PerformanceAnswer[];
@@ -24,6 +44,11 @@ interface GameState {
 interface GameContextType {
   state: GameState;
   setNickname: (name: string) => void;
+  setGender: (gender: Gender) => void;
+  setAge: (age: number) => void;
+  setInstrument: (instrument: string) => void;
+  setMusicMajor: (major: MusicMajor) => void;
+  setSkillLevel: (level: SkillLevel) => void;
   setConsentGiven: (consent: boolean) => void;
   addSelfAssessmentAnswer: (answer: SelfAssessmentAnswer) => void;
   addPerformanceAnswer: (answer: PerformanceAnswer) => void;
@@ -32,6 +57,11 @@ interface GameContextType {
 
 const initialState: GameState = {
   nickname: "",
+  gender: null,
+  age: null,
+  instrument: "",
+  musicMajor: null,
+  skillLevel: null,
   consentGiven: false,
   selfAssessmentAnswers: [],
   performanceAnswers: [],
@@ -44,6 +74,26 @@ export function GameProvider({ children }: { children: ReactNode }) {
 
   const setNickname = (name: string) => {
     setState((prev) => ({ ...prev, nickname: name }));
+  };
+
+  const setGender = (gender: Gender) => {
+    setState((prev) => ({ ...prev, gender }));
+  };
+
+  const setAge = (age: number) => {
+    setState((prev) => ({ ...prev, age }));
+  };
+
+  const setInstrument = (instrument: string) => {
+    setState((prev) => ({ ...prev, instrument }));
+  };
+
+  const setMusicMajor = (major: MusicMajor) => {
+    setState((prev) => ({ ...prev, musicMajor: major }));
+  };
+
+  const setSkillLevel = (level: SkillLevel) => {
+    setState((prev) => ({ ...prev, skillLevel: level }));
   };
 
   const setConsentGiven = (consent: boolean) => {
@@ -73,6 +123,11 @@ export function GameProvider({ children }: { children: ReactNode }) {
       value={{
         state,
         setNickname,
+        setGender,
+        setAge,
+        setInstrument,
+        setMusicMajor,
+        setSkillLevel,
         setConsentGiven,
         addSelfAssessmentAnswer,
         addPerformanceAnswer,
