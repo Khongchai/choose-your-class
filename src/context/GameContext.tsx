@@ -53,6 +53,7 @@ interface GameContextType {
   addSelfAssessmentAnswer: (answer: SelfAssessmentAnswer) => void;
   setSelfAssessmentAnswers: (answers: SelfAssessmentAnswer[]) => void;
   addPerformanceAnswer: (answer: PerformanceAnswer) => void;
+  setPerformanceAnswers: (answers: PerformanceAnswer[]) => void;
   resetState: () => void;
 }
 
@@ -119,6 +120,10 @@ export function GameProvider({ children }: { children: ReactNode }) {
     }));
   };
 
+  const setPerformanceAnswers = (answers: PerformanceAnswer[]) => {
+    setState((prev) => ({ ...prev, performanceAnswers: answers }));
+  };
+
   const resetState = () => {
     setState(initialState);
   };
@@ -137,6 +142,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
         addSelfAssessmentAnswer,
         setSelfAssessmentAnswers,
         addPerformanceAnswer,
+        setPerformanceAnswers,
         resetState,
       }}
     >
