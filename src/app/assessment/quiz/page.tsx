@@ -33,8 +33,6 @@ export default function SelfAssessmentQuizPage() {
   // Local answers: keyed by shuffled index
   const [answers, setAnswers] = useState<Record<number, "RO" | "AE">>({});
   const [animKey, setAnimKey] = useState(0);
-  // Track which direction we're navigating for animation
-  const [direction, setDirection] = useState<"forward" | "backward">("forward");
 
   const current = shuffledQuestions[currentIndex];
   const isFlipped = choiceFlips[currentIndex];
@@ -51,8 +49,7 @@ export default function SelfAssessmentQuizPage() {
   const isLast = currentIndex === shuffledQuestions.length - 1;
   const hasAnswered = selected !== null;
 
-  const goTo = useCallback((index: number, dir: "forward" | "backward") => {
-    setDirection(dir);
+  const goTo = useCallback((index: number) => {
     setCurrentIndex(index);
     setAnimKey((prev) => prev + 1);
   }, []);
@@ -67,7 +64,7 @@ export default function SelfAssessmentQuizPage() {
       if (isNewAnswer) {
         setTimeout(() => {
           if (!isLast) {
-            goTo(currentIndex + 1, "forward");
+            goTo(currentIndex + 1);
           }
         }, 400);
       }
@@ -79,7 +76,7 @@ export default function SelfAssessmentQuizPage() {
     if (isFirst) {
       router.push("/assessment");
     } else {
-      goTo(currentIndex - 1, "backward");
+      goTo(currentIndex - 1);
     }
   }, [isFirst, currentIndex, goTo, router]);
 
@@ -94,7 +91,7 @@ export default function SelfAssessmentQuizPage() {
       setSelfAssessmentAnswers(allAnswers);
       router.push("/performance");
     } else {
-      goTo(currentIndex + 1, "forward");
+      goTo(currentIndex + 1);
     }
   }, [
     hasAnswered,
@@ -107,10 +104,7 @@ export default function SelfAssessmentQuizPage() {
     goTo,
   ]);
 
-  const animClass =
-    direction === "forward"
-      ? "animate-slide-in-right"
-      : "animate-slide-in-left";
+  const animClass = "animate-crossfade";
 
   return (
     <div className="flex min-h-dvh flex-col px-6 py-10 sm:py-16">
@@ -147,12 +141,12 @@ export default function SelfAssessmentQuizPage() {
           {/* Left choice */}
           <button
             onClick={() => handleSelect(leftChoice.type)}
-            className={`rounded-lg px-4 py-5 sm:py-6 text-sm sm:text-base font-medium text-center leading-snug transition-all duration-200 cursor-pointer ${
+            className={`rounded-lg px-4 py-5 sm:py-6 text-sm sm:text-base font-medium text-center leading-snug transition-[colors,opacity] duration-200 cursor-pointer ${
               selected === leftChoice.type
-                ? "scale-95 ring-2 ring-dark-brown"
+                ? "ring-2 ring-dark-brown ring-offset-2 ring-offset-peach"
                 : selected
                   ? "opacity-40"
-                  : "hover:scale-105 active:scale-95"
+                  : "hover:brightness-95"
             } ${
               leftChoice.type === "RO"
                 ? "bg-[#F5C77E] text-dark-brown"
@@ -165,12 +159,12 @@ export default function SelfAssessmentQuizPage() {
           {/* Right choice */}
           <button
             onClick={() => handleSelect(rightChoice.type)}
-            className={`rounded-lg px-4 py-5 sm:py-6 text-sm sm:text-base font-medium text-center leading-snug transition-all duration-200 cursor-pointer ${
+            className={`rounded-lg px-4 py-5 sm:py-6 text-sm sm:text-base font-medium text-center leading-snug transition-[colors,opacity] duration-200 cursor-pointer ${
               selected === rightChoice.type
-                ? "scale-95 ring-2 ring-dark-brown"
+                ? "ring-2 ring-dark-brown ring-offset-2 ring-offset-peach"
                 : selected
                   ? "opacity-40"
-                  : "hover:scale-105 active:scale-95"
+                  : "hover:brightness-95"
             } ${
               rightChoice.type === "AE"
                 ? "bg-[#E8A0BF]/40 text-dark-brown"

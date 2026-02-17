@@ -55,15 +55,15 @@ export default function GuildPage() {
         </div>
 
         {/* Options */}
-        <div className="stagger flex flex-col gap-3 w-full">
+        <div className="flex flex-col gap-3 w-full">
           {options.map((opt) => (
             <button
               key={opt.id}
               onClick={() => handleSelect(opt.id)}
-              className={`animate-item w-full py-4 sm:py-5 px-6 rounded-lg text-base sm:text-lg font-semibold text-center transition-all duration-200 cursor-pointer ${
+              className={`w-full py-4 sm:py-5 px-6 rounded-lg text-base sm:text-lg font-semibold text-center transition-colors duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown ${
                 selected === opt.id
-                  ? "bg-dark-brown text-peach scale-95"
-                  : "bg-cream/80 text-dark-brown hover:bg-cream hover:scale-105 active:scale-95"
+                  ? "bg-dark-brown text-peach ring-2 ring-dark-brown/50 ring-offset-2 ring-offset-peach"
+                  : "bg-cream/80 text-dark-brown hover:bg-cream"
               }`}
             >
               {opt.label}

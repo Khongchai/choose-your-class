@@ -25,89 +25,15 @@ body {
   min-height: 100dvh;
 }
 
-/* Page entrance */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Staggered item entrance */
 @keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-/* Gentle float for decorative elements */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
+.animate-page {
+  animation: fade-in 0.3s ease-out both;
 }
 
-
-.animate-item {
-  opacity: 0;
-  animation: fade-in 0.4s ease-out both;
+.animate-crossfade {
+  animation: fade-in 0.25s ease-out both;
 }
-
-/**
-
-*/
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-/* Directional slide transitions for quiz navigation */
-@keyframes slide-in-right {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slide-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.animate-slide-in-right {
-  animation: slide-in-right 0.35s ease-out both;
-}
-
-.animate-slide-in-left {
-  animation: slide-in-left 0.35s ease-out both;
-}
-
-/* Stagger delays for list children */
-.stagger > *:nth-child(1) { animation-delay: 0.05s; }
-.stagger > *:nth-child(2) { animation-delay: 0.1s; }
-.stagger > *:nth-child(3) { animation-delay: 0.15s; }
-.stagger > *:nth-child(4) { animation-delay: 0.2s; }
-.stagger > *:nth-child(5) { animation-delay: 0.25s; }
-.stagger > *:nth-child(6) { animation-delay: 0.3s; }

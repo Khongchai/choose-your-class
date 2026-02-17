@@ -64,16 +64,16 @@ export default function ProfilePage() {
           {error && <p className="text-red-700 text-sm -mt-3">{error}</p>}
 
           {/* Buttons */}
-          <div className="stagger flex gap-4 w-full">
+          <div className="flex gap-4 w-full">
             <button
               onClick={handleSubmit}
-              className="animate-item flex-1 py-3.5 rounded-lg text-base font-semibold tracking-wide transition-all duration-200 cursor-pointer bg-dark-brown text-peach hover:opacity-90 hover:scale-105 active:scale-95"
+              className="flex-1 py-3.5 rounded-lg text-base font-semibold tracking-wide transition-colors duration-200 cursor-pointer bg-dark-brown text-peach hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
             >
               Confirm
             </button>
             <button
               onClick={handleCancel}
-              className="animate-item flex-1 py-3.5 rounded-lg text-base font-semibold tracking-wide transition-all duration-200 cursor-pointer bg-dark-brown text-peach hover:opacity-90 hover:scale-105 active:scale-95"
+              className="flex-1 py-3.5 rounded-lg text-base font-semibold tracking-wide transition-colors duration-200 cursor-pointer bg-dark-brown text-peach hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
             >
               Cancel
             </button>

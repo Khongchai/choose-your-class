@@ -70,16 +70,16 @@ export default function ConsentPage() {
         </div>
 
         {/* Buttons */}
-        <div className="stagger flex gap-4 sm:gap-5">
+        <div className="flex gap-4 sm:gap-5">
           <button
             onClick={handleAgree}
-            className="animate-item px-8 sm:px-12 py-3.5 sm:py-4 rounded-lg text-base sm:text-lg font-semibold tracking-wide transition-all duration-200 cursor-pointer bg-dark-brown text-peach hover:opacity-90 hover:scale-105 active:scale-95"
+            className="px-8 sm:px-12 py-3.5 sm:py-4 rounded-lg text-base sm:text-lg font-semibold tracking-wide transition-colors duration-200 cursor-pointer bg-dark-brown text-peach hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
           >
             I AGREE - LET&apos;S PLAY
           </button>
           <button
             onClick={handleDecline}
-            className="animate-item px-8 sm:px-12 py-3.5 sm:py-4 rounded-lg text-base sm:text-lg font-semibold tracking-wide transition-all duration-200 cursor-pointer bg-dark-brown text-peach hover:opacity-90 hover:scale-105 active:scale-95"
+            className="px-8 sm:px-12 py-3.5 sm:py-4 rounded-lg text-base sm:text-lg font-semibold tracking-wide transition-colors duration-200 cursor-pointer bg-dark-brown text-peach hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
           >
             NO THANKS
           </button>
