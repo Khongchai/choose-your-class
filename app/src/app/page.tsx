@@ -18,49 +18,47 @@ export default function ChooseClass() {
   };
 
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center px-4 py-8 sm:px-6 sm:py-12">
-      <div className="w-full max-w-sm sm:max-w-md flex flex-col items-center gap-6 sm:gap-10">
-        {/* Title */}
-        <div className="flex flex-col items-center gap-3 sm:gap-4">
-          <Image
-            src="/title-image.png"
-            alt="Choose Your Class"
-            className="pointer-events-none select-none w-50 sm:w-80 scale-[1.7] md:scale-[2]"
-            width={320}
-            height={160}
-            priority
-          />
-          <p className="text-warm-gray text-base sm:text-2xl leading-relaxed text-center">
-            Enter a musical quest to discover
-            <br />
-            your favourite ways to learn
-          </p>
-        </div>
+    <div className="flex min-h-dvh flex-col items-center justify-between px-6 py-16 sm:py-24">
+      {/* Top section */}
+      <div className="flex flex-col items-center gap-4">
+        <Image
+          src="/title-image.png"
+          alt="Choose Your Class"
+          className="pointer-events-none select-none w-50 sm:w-80 scale-[1.7] md:scale-[2]"
+          width={320}
+          height={160}
+          priority
+        />
+        <p className="text-dark-brown/70 text-lg sm:text-2xl leading-relaxed text-center">
+          Enter a musical quest to discover
+          <br />
+          your favourite ways to learn
+        </p>
+      </div>
 
-        {/* Class Selection */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full">
-          {classes.map((cls) => (
-            <div
-              key={cls.id}
-              className={`flex flex-col items-center gap-2 rounded-xl p-3 sm:p-4 transition-all duration-200 cursor-pointer`}
-            >
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-cream flex items-center justify-center text-xl sm:text-2xl">
-                {cls.emoji}
-              </div>
-              <span className="text-xs font-semibold">{cls.label}</span>
+      {/* Class icons */}
+      <div className="flex items-center justify-center gap-6 sm:gap-10 my-12 sm:my-16">
+        {classes.map((cls) => (
+          <div key={cls.id} className="flex flex-col items-center gap-3">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-dark-brown/15 flex items-center justify-center text-2xl sm:text-3xl">
+              {cls.emoji}
             </div>
-          ))}
-        </div>
+            <span className="text-dark-brown/80 text-xs sm:text-sm font-semibold">
+              {cls.label}
+            </span>
+          </div>
+        ))}
+      </div>
 
+      {/* Bottom section */}
+      <div className="flex flex-col items-center gap-6">
         <button
           onClick={handlePlay}
-          className={`w-full max-w-xs py-3 sm:py-4 px-8 rounded-xl text-lg sm:text-xl font-bold tracking-wide transition-all duration-200 cursor-pointer ${"bg-dark-brown text-cream hover:bg-warm-gray active:scale-95"}`}
+          className="px-16 sm:px-20 py-3.5 sm:py-4 rounded-lg text-lg sm:text-xl font-semibold tracking-wide transition-all duration-200 cursor-pointer bg-dark-brown text-peach hover:opacity-90 active:scale-95"
         >
           Play
         </button>
-
-        {/* Duration Note */}
-        <p className="text-warm-gray text-xs sm:text-sm">
+        <p className="text-dark-brown/50 text-xs sm:text-sm">
           Quiz takes approximately 5–10 minutes
         </p>
       </div>
