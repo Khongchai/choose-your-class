@@ -65,11 +65,20 @@ export default function SelfAssessmentQuizPage() {
         setTimeout(() => {
           if (!isLast) {
             goTo(currentIndex + 1);
+          } else {
+            // Last question — auto-submit and navigate
+            const updatedAnswers = { ...answers, [currentIndex]: choice };
+            const allAnswers = shuffledQuestions.map((q, i) => ({
+              questionId: q.id,
+              choice: updatedAnswers[i]!,
+            }));
+            setSelfAssessmentAnswers(allAnswers);
+            router.push("/performance");
           }
         }, 400);
       }
     },
-    [answers, currentIndex, isLast, goTo],
+    [answers, currentIndex, isLast, goTo, shuffledQuestions, setSelfAssessmentAnswers, router],
   );
 
   const handleBack = useCallback(() => {
