@@ -15,6 +15,7 @@ interface PerformanceAnswer {
 }
 
 interface GameState {
+  nickname: string;
   consentGiven: boolean;
   selfAssessmentAnswers: SelfAssessmentAnswer[];
   performanceAnswers: PerformanceAnswer[];
@@ -22,6 +23,7 @@ interface GameState {
 
 interface GameContextType {
   state: GameState;
+  setNickname: (name: string) => void;
   setConsentGiven: (consent: boolean) => void;
   addSelfAssessmentAnswer: (answer: SelfAssessmentAnswer) => void;
   addPerformanceAnswer: (answer: PerformanceAnswer) => void;
@@ -29,6 +31,7 @@ interface GameContextType {
 }
 
 const initialState: GameState = {
+  nickname: "",
   consentGiven: false,
   selfAssessmentAnswers: [],
   performanceAnswers: [],
@@ -38,6 +41,10 @@ const GameContext = createContext<GameContextType | undefined>(undefined);
 
 export function GameProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<GameState>(initialState);
+
+  const setNickname = (name: string) => {
+    setState((prev) => ({ ...prev, nickname: name }));
+  };
 
   const setConsentGiven = (consent: boolean) => {
     setState((prev) => ({ ...prev, consentGiven: consent }));
@@ -65,6 +72,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     <GameContext.Provider
       value={{
         state,
+        setNickname,
         setConsentGiven,
         addSelfAssessmentAnswer,
         addPerformanceAnswer,

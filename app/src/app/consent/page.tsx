@@ -9,7 +9,7 @@ export default function ConsentPage() {
 
   const handleAgree = () => {
     setConsentGiven(true);
-    router.push("/assessment");
+    router.push("/profile");
   };
 
   const handleDecline = () => {
