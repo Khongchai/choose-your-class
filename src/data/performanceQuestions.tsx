@@ -8,7 +8,8 @@ interface BaseQuestion {
 
 export interface ChoiceQuestion extends BaseQuestion {
   type: "choice";
-  audio: string;
+  audio?: string;
+  image?: string;
   left: { label: ReactNode; value: string };
   right: { label: ReactNode; value: string };
   correctValue: string;
@@ -51,6 +52,30 @@ const performanceQuestions: PerformanceQuestion[] = [
       value: "3 4",
     },
     correctValue: "3 4",
+    timeLimit: 10,
+  },
+  {
+    id: 3,
+    type: "choice",
+    instruction: "Look at the notation below. What time signature is this?",
+    image: "/notation-q3.svg",
+    left: {
+      label: (
+        <div>
+          6<br />8
+        </div>
+      ),
+      value: "68",
+    },
+    right: {
+      label: (
+        <div>
+          3<br />4
+        </div>
+      ),
+      value: "34",
+    },
+    correctValue: "34",
     timeLimit: 10,
   },
   {

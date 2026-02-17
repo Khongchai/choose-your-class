@@ -4,6 +4,7 @@ import { useGame } from "@/context/GameContext";
 import performanceQuestions, {
   type ChoiceQuestion,
 } from "@/data/performanceQuestions";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import RhythmTapView from "./RhythmTapView";
@@ -77,48 +78,64 @@ function ChoiceView({
         {question.instruction}
       </p>
 
-      {/* Play Audio button */}
-      <button
-        onClick={onPlayAudio}
-        className="flex items-center gap-3 px-8 py-4 rounded-full bg-dark-brown text-peach font-semibold text-base sm:text-lg transition-colors duration-200 cursor-pointer hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
-      >
-        {isPlaying ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              fillRule="evenodd"
-              d="M6.75 5.25a.75.75 0 01.75-.75H9a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H7.5a.75.75 0 01-.75-.75V5.25zm7.5 0A.75.75 0 0115 4.5h1.5a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H15a.75.75 0 01-.75-.75V5.25z"
-              clipRule="evenodd"
-            />
-          </svg>
-        ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              fillRule="evenodd"
-              d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
-              clipRule="evenodd"
-            />
-          </svg>
-        )}
-        {isPlaying ? "Pause" : "Play Audio"}
-      </button>
+      {/* Image (for visual questions) */}
+      {question.image && (
+        <div className="w-full flex justify-center">
+          <Image
+            src={question.image}
+            alt="Music notation"
+            width={400}
+            height={120}
+            className="max-w-full h-auto"
+          />
+        </div>
+      )}
 
-      {/* Hidden audio */}
-      <audio
-        ref={audioRef}
-        src={question.audio}
-        onEnded={onAudioEnded}
-        preload="auto"
-      />
+      {/* Play Audio button (for audio questions) */}
+      {question.audio && (
+        <>
+          <button
+            onClick={onPlayAudio}
+            className="flex items-center gap-3 px-8 py-4 rounded-full bg-dark-brown text-peach font-semibold text-base sm:text-lg transition-colors duration-200 cursor-pointer hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
+          >
+            {isPlaying ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M6.75 5.25a.75.75 0 01.75-.75H9a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H7.5a.75.75 0 01-.75-.75V5.25zm7.5 0A.75.75 0 0115 4.5h1.5a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H15a.75.75 0 01-.75-.75V5.25z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            )}
+            {isPlaying ? "Pause" : "Play Audio"}
+          </button>
+
+          <audio
+            ref={audioRef}
+            src={question.audio}
+            onEnded={onAudioEnded}
+            preload="auto"
+          />
+        </>
+      )}
 
       {/* Choices */}
       <div className="grid grid-cols-2 gap-4 w-full mt-4">
@@ -246,16 +263,48 @@ export default function PerformancePage() {
       stopTimer();
       setCurrentIndex(index);
       setAnimKey((prev) => prev + 1);
-      setTimeLeft(shuffledQuestions[index]?.timeLimit ?? 10);
       setIsPlaying(false);
-      setHasPlayed(false);
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
       }
+
+      const next = shuffledQuestions[index];
+      setTimeLeft(next?.timeLimit ?? 10);
+
+      // Image-only choice questions: enable immediately and start timer
+      if (next?.type === "choice" && next.image && !next.audio) {
+        setHasPlayed(true);
+        // Start timer in next tick so timeLeft is set
+        setTimeout(() => {
+          timerStartRef.current = Date.now();
+          timerIntervalRef.current = setInterval(() => {
+            const elapsed =
+              (Date.now() - (timerStartRef.current ?? Date.now())) / 1000;
+            const remaining = Math.max(0, (next.timeLimit ?? 10) - elapsed);
+            setTimeLeft(remaining);
+            if (remaining <= 0) {
+              if (timerIntervalRef.current)
+                clearInterval(timerIntervalRef.current);
+            }
+          }, 100);
+        }, 0);
+      } else {
+        setHasPlayed(false);
+      }
     },
     [stopTimer, shuffledQuestions],
   );
+
+  // Auto-start timer if the first question is an image-only choice
+  useEffect(() => {
+    const first = shuffledQuestions[0];
+    if (first?.type === "choice" && first.image && !first.audio) {
+      setHasPlayed(true);
+      startTimer();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // ── Choice question handlers ───────────────────────────────────────────
 
