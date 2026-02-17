@@ -1,11 +1,9 @@
 "use client";
 
-import { CharacterClass, useGame } from "@/context/GameContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
-const classes: { id: CharacterClass; label: string; emoji: string }[] = [
+const classes: { id: string; label: string; emoji: string }[] = [
   { id: "warrior", label: "Warrior", emoji: "⚔️" },
   { id: "druid", label: "Druid", emoji: "🌿" },
   { id: "mage", label: "Mage", emoji: "✨" },
@@ -13,72 +11,56 @@ const classes: { id: CharacterClass; label: string; emoji: string }[] = [
 ];
 
 export default function ChooseClass() {
-  const [selected, setSelected] = useState<CharacterClass | null>(null);
-  const { setCharacterClass } = useGame();
   const router = useRouter();
 
   const handlePlay = () => {
-    if (!selected) return;
-    setCharacterClass(selected);
     router.push("/consent");
   };
 
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center px-6 py-12">
-      <div className="w-full max-w-md flex flex-col items-center gap-10">
+    <div className="flex min-h-dvh flex-col items-center justify-center px-4 py-8 sm:px-6 sm:py-12">
+      <div className="w-full max-w-sm sm:max-w-md flex flex-col items-center gap-6 sm:gap-10">
         {/* Title */}
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-3 sm:gap-4">
           <Image
             src="/title-image.png"
             alt="Choose Your Class"
-            className="pointer-events-none select-none"
+            className="pointer-events-none select-none w-50 sm:w-80 scale-[1.7] md:scale-[2]"
             width={320}
             height={160}
-            style={{
-              scale: 2,
-            }}
             priority
           />
-          <p className="text-warm-gray text-base leading-relaxed text-center">
-            Enter a musical quest to discover your favourite ways to learn
+          <p className="text-warm-gray text-base sm:text-2xl leading-relaxed text-center">
+            Enter a musical quest to discover
+            <br />
+            your favourite ways to learn
           </p>
         </div>
 
         {/* Class Selection */}
-        <div className="grid grid-cols-4 gap-4 w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full">
           {classes.map((cls) => (
-            <button
+            <div
               key={cls.id}
-              onClick={() => setSelected(cls.id)}
-              className={`flex flex-col items-center gap-2 rounded-xl p-4 transition-all duration-200 cursor-pointer ${
-                selected === cls.id
-                  ? "bg-dark-brown text-cream ring-2 ring-peach scale-105"
-                  : "bg-peach/30 text-dark-brown hover:bg-peach/50"
-              }`}
+              className={`flex flex-col items-center gap-2 rounded-xl p-3 sm:p-4 transition-all duration-200 cursor-pointer`}
             >
-              <div className="w-16 h-16 rounded-full bg-cream flex items-center justify-center text-2xl">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-cream flex items-center justify-center text-xl sm:text-2xl">
                 {cls.emoji}
               </div>
               <span className="text-xs font-semibold">{cls.label}</span>
-            </button>
+            </div>
           ))}
         </div>
 
-        {/* Play Button */}
         <button
           onClick={handlePlay}
-          disabled={!selected}
-          className={`w-full max-w-xs py-4 px-8 rounded-xl text-xl font-bold tracking-wide transition-all duration-200 cursor-pointer ${
-            selected
-              ? "bg-dark-brown text-cream hover:bg-warm-gray active:scale-95"
-              : "bg-warm-gray/30 text-warm-gray/50 cursor-not-allowed"
-          }`}
+          className={`w-full max-w-xs py-3 sm:py-4 px-8 rounded-xl text-lg sm:text-xl font-bold tracking-wide transition-all duration-200 cursor-pointer ${"bg-dark-brown text-cream hover:bg-warm-gray active:scale-95"}`}
         >
           Play
         </button>
 
         {/* Duration Note */}
-        <p className="text-warm-gray text-sm">
+        <p className="text-warm-gray text-xs sm:text-sm">
           Quiz takes approximately 5–10 minutes
         </p>
       </div>

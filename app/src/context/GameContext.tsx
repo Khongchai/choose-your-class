@@ -1,8 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
-
-export type CharacterClass = "warrior" | "druid" | "mage" | "alchemist";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 interface SelfAssessmentAnswer {
   questionId: number;
@@ -17,7 +15,6 @@ interface PerformanceAnswer {
 }
 
 interface GameState {
-  characterClass: CharacterClass | null;
   consentGiven: boolean;
   selfAssessmentAnswers: SelfAssessmentAnswer[];
   performanceAnswers: PerformanceAnswer[];
@@ -25,7 +22,6 @@ interface GameState {
 
 interface GameContextType {
   state: GameState;
-  setCharacterClass: (cls: CharacterClass) => void;
   setConsentGiven: (consent: boolean) => void;
   addSelfAssessmentAnswer: (answer: SelfAssessmentAnswer) => void;
   addPerformanceAnswer: (answer: PerformanceAnswer) => void;
@@ -33,7 +29,6 @@ interface GameContextType {
 }
 
 const initialState: GameState = {
-  characterClass: null,
   consentGiven: false,
   selfAssessmentAnswers: [],
   performanceAnswers: [],
@@ -43,10 +38,6 @@ const GameContext = createContext<GameContextType | undefined>(undefined);
 
 export function GameProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<GameState>(initialState);
-
-  const setCharacterClass = (cls: CharacterClass) => {
-    setState((prev) => ({ ...prev, characterClass: cls }));
-  };
 
   const setConsentGiven = (consent: boolean) => {
     setState((prev) => ({ ...prev, consentGiven: consent }));
@@ -74,7 +65,6 @@ export function GameProvider({ children }: { children: ReactNode }) {
     <GameContext.Provider
       value={{
         state,
-        setCharacterClass,
         setConsentGiven,
         addSelfAssessmentAnswer,
         addPerformanceAnswer,
