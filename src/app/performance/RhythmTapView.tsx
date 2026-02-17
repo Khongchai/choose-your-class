@@ -137,13 +137,6 @@ export default function RhythmTapView({ question, onComplete }: Props) {
         </div>
       )}
 
-      {/* Tap counter (during tapping phase) */}
-      {phase === "tapping" && (
-        <p className="text-dark-brown/40 text-sm font-semibold tabular-nums">
-          Taps: {tapCount}
-        </p>
-      )}
-
       {/* Done message */}
       {phase === "done" && (
         <p className="text-dark-brown/60 text-sm font-medium">Done!</p>

@@ -152,9 +152,7 @@ function ChoiceView({
                   : "hover:brightness-95 cursor-pointer"
           } bg-[#F5C77E] text-dark-brown`}
         >
-          <span className="flex flex-col items-center">
-            {leftChoice.label}
-          </span>
+          <span className="flex flex-col items-center">{leftChoice.label}</span>
         </button>
 
         <button
@@ -336,9 +334,7 @@ export default function PerformancePage() {
       stopTimer();
       const timeTaken =
         timerStartRef.current !== null
-          ? parseFloat(
-              ((Date.now() - timerStartRef.current) / 1000).toFixed(2),
-            )
+          ? parseFloat(((Date.now() - timerStartRef.current) / 1000).toFixed(2))
           : 0;
 
       setAnswers((prev) => ({
@@ -434,9 +430,7 @@ export default function PerformancePage() {
         {/* Timeout message (choice only) */}
         {current.type === "choice" &&
           answers[currentIndex]?.value === "__timeout__" && (
-            <p className="text-red-700 text-sm font-medium">
-              Time&apos;s up!
-            </p>
+            <p className="text-red-700 text-sm font-medium">Time&apos;s up!</p>
           )}
       </div>
 
