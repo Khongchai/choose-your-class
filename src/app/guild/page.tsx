@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { useGame } from "@/context/GameContext";
 
 type MusicMajor =
@@ -11,18 +12,19 @@ type MusicMajor =
   | "popular-contemporary"
   | "non-music";
 
-const options: { id: MusicMajor; label: string }[] = [
-  { id: "classical", label: "Classical" },
-  { id: "jazz", label: "Jazz" },
-  { id: "thai-traditional", label: "Thai / Traditional Music" },
-  { id: "popular-contemporary", label: "Popular / Contemporary" },
-  { id: "non-music", label: "(Non-Music Major)" },
+const guildKeys: { id: MusicMajor; key: string }[] = [
+  { id: "classical", key: "guild.classical" },
+  { id: "jazz", key: "guild.jazz" },
+  { id: "thai-traditional", key: "guild.thaiTraditional" },
+  { id: "popular-contemporary", key: "guild.popularContemporary" },
+  { id: "non-music", key: "guild.nonMusic" },
 ];
 
 export default function GuildPage() {
   const [selected, setSelected] = useState<MusicMajor | null>(null);
   const router = useRouter();
   const { setMusicMajor } = useGame();
+  const { t } = useTranslation();
 
   const handleSelect = (major: MusicMajor) => {
     setSelected(major);
@@ -37,26 +39,25 @@ export default function GuildPage() {
       <div className="w-full max-w-sm sm:max-w-md flex flex-col items-center gap-8 sm:gap-10">
         {/* Info text */}
         <p className="text-dark-brown/60 text-sm sm:text-base text-center leading-relaxed">
-          To balance the game and help our research, please provide your real
-          information below. This information remains completely anonymous.
+          {t("shared.infoText")}
         </p>
 
         {/* Title */}
         <div className="text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-dark-brown">
-            Choose Your Guild
+            {t("guild.title")}
           </h1>
           <p className="text-xl sm:text-2xl font-bold text-dark-brown">
-            (Music Major)
+            {t("guild.subtitle")}
           </p>
           <p className="mt-3 text-dark-brown/70 text-base sm:text-lg">
-            Which Guild do you belong to?
+            {t("guild.label")}
           </p>
         </div>
 
         {/* Options */}
         <div className="flex flex-col gap-3 w-full">
-          {options.map((opt) => (
+          {guildKeys.map((opt) => (
             <button
               key={opt.id}
               onClick={() => handleSelect(opt.id)}
@@ -66,7 +67,7 @@ export default function GuildPage() {
                   : "bg-cream/80 text-dark-brown hover:bg-cream"
               }`}
             >
-              {opt.label}
+              {t(opt.key)}
             </button>
           ))}
         </div>

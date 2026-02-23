@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { useGame } from "@/context/GameContext";
 
 type SkillLevel =
@@ -12,19 +13,20 @@ type SkillLevel =
   | "expert"
   | "master";
 
-const options: { id: SkillLevel; label: string }[] = [
-  { id: "novice", label: "Novice (Grades 1–3)" },
-  { id: "intermediate", label: "Intermediate (Grades 4–5)" },
-  { id: "advanced", label: "Advanced (Grades 6–8)" },
-  { id: "professional", label: "Professional (Entry)" },
-  { id: "expert", label: "Expert" },
-  { id: "master", label: "Master" },
+const skillKeys: { id: SkillLevel; key: string }[] = [
+  { id: "novice", key: "skillLevel.novice" },
+  { id: "intermediate", key: "skillLevel.intermediate" },
+  { id: "advanced", key: "skillLevel.advanced" },
+  { id: "professional", key: "skillLevel.professional" },
+  { id: "expert", key: "skillLevel.expert" },
+  { id: "master", key: "skillLevel.master" },
 ];
 
 export default function SkillLevelPage() {
   const [selected, setSelected] = useState<SkillLevel | null>(null);
   const router = useRouter();
   const { setSkillLevel } = useGame();
+  const { t } = useTranslation();
 
   const handleSelect = (level: SkillLevel) => {
     setSelected(level);
@@ -39,24 +41,25 @@ export default function SkillLevelPage() {
       <div className="w-full max-w-sm sm:max-w-md flex flex-col items-center gap-8 sm:gap-10">
         {/* Info text */}
         <p className="text-dark-brown/60 text-sm sm:text-base text-center leading-relaxed">
-          To balance the game and help our research, please provide your real
-          information below. This information remains completely anonymous.
+          {t("shared.infoText")}
         </p>
 
         {/* Title */}
         <div className="text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-dark-brown">
-            Your Current Quest
+            {t("skillLevel.title")}
           </h1>
+          <p className="text-dark-brown/70 text-sm sm:text-base mt-1">
+            {t("skillLevel.subtitle")}
+          </p>
           <p className="mt-3 text-dark-brown/70 text-sm sm:text-base leading-relaxed">
-            &quot;What is the grade level of the repertoire you are currently
-            practicing or performing?&quot;
+            {t("skillLevel.label")}
           </p>
         </div>
 
         {/* Options */}
         <div className="flex flex-col gap-3 w-full">
-          {options.map((opt) => (
+          {skillKeys.map((opt) => (
             <button
               key={opt.id}
               onClick={() => handleSelect(opt.id)}
@@ -66,7 +69,7 @@ export default function SkillLevelPage() {
                   : "bg-cream/80 text-dark-brown hover:bg-cream"
               }`}
             >
-              {opt.label}
+              {t(opt.key)}
             </button>
           ))}
         </div>
