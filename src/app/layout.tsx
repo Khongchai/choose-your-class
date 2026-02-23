@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { GameProvider } from "@/context/GameContext";
+import I18nProvider from "@/i18n/I18nProvider";
 import "./globals.css";
 
 const selawik = localFont({
@@ -28,7 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${selawik.variable} antialiased`}>
-        <GameProvider>{children}</GameProvider>
+        <I18nProvider>
+          <GameProvider>{children}</GameProvider>
+        </I18nProvider>
       </body>
     </html>
   );

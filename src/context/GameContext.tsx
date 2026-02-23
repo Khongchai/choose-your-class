@@ -14,6 +14,7 @@ interface PerformanceAnswer {
   score: 0 | 1;
 }
 
+type Language = "en" | "th";
 type Gender = "male" | "female" | "non-binary" | "prefer-not-to-say";
 type MusicMajor =
   | "classical"
@@ -30,6 +31,7 @@ type SkillLevel =
   | "master";
 
 interface GameState {
+  language: Language;
   nickname: string;
   gender: Gender | null;
   age: number | null;
@@ -43,6 +45,7 @@ interface GameState {
 
 interface GameContextType {
   state: GameState;
+  setLanguage: (language: Language) => void;
   setNickname: (name: string) => void;
   setGender: (gender: Gender) => void;
   setAge: (age: number) => void;
@@ -58,6 +61,7 @@ interface GameContextType {
 }
 
 const initialState: GameState = {
+  language: "en",
   nickname: "",
   gender: null,
   age: null,
@@ -73,6 +77,10 @@ const GameContext = createContext<GameContextType | undefined>(undefined);
 
 export function GameProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<GameState>(initialState);
+
+  const setLanguage = (language: Language) => {
+    setState((prev) => ({ ...prev, language }));
+  };
 
   const setNickname = (name: string) => {
     setState((prev) => ({ ...prev, nickname: name }));
@@ -132,6 +140,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     <GameContext.Provider
       value={{
         state,
+        setLanguage,
         setNickname,
         setGender,
         setAge,
