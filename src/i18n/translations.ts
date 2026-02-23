@@ -14,8 +14,7 @@ export const resources = {
         confirm: "Confirm",
         cancel: "Cancel",
         errorEmpty: "Please enter a name",
-        errorInvalid:
-          "Letters only (Thai or English) — no numbers or symbols",
+        errorInvalid: "Letters only (Thai or English) — no numbers or symbols",
       },
       shared: {
         infoText:
@@ -90,13 +89,15 @@ export const resources = {
         agree: "I AGREE - LET'S PLAY",
         decline: "NO THANKS",
       },
+      journey: {
+        title: "Let's begin the journey",
+      },
     },
   },
   th: {
     translation: {
       home: {
-        subtitle:
-          "เข้าสู่เควสดนตรีเพื่อค้นพบ\nวิธีการเรียนรู้ที่คุณชื่นชอบ",
+        subtitle: "เข้าสู่เควสดนตรีเพื่อค้นพบ\nวิธีการเรียนรู้ที่คุณชื่นชอบ",
         play: "เล่น",
         duration: "แบบทดสอบใช้เวลาประมาณ 5–8 นาที",
       },
@@ -182,6 +183,9 @@ export const resources = {
           'การกด "ยินยอม" (I AGREE) หมายความว่าท่านได้อ่านและทำความเข้าใจข้อมูลข้างต้น และยินยอมเข้าร่วมการศึกษานี้ด้วยความสมัครใจ',
         agree: "ยินยอม",
         decline: "ไม่ยินยอม",
+      },
+      journey: {
+        title: "ออกเดินทางกันเถอะ",
       },
     },
   },
