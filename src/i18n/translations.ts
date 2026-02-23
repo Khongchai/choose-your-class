@@ -177,6 +177,11 @@ export const resources = {
           ro: "Study the history of the piece, listen to many performers, then decide on my interpretation",
         },
       },
+      results: {
+        thankYou: "Thank you for joining the journey\nto discover yourself",
+        seeYou: "See you again!",
+        viewResults: "Tap to see your results",
+      },
     },
   },
   th: {
@@ -356,6 +361,11 @@ export const resources = {
           ae: "ลองเล่นเองหลาย ๆ แบบ เพื่อหาเสียงที่ตัวเองชอบ",
           ro: "ศึกษาประวัติเพลง ฟังการบรรเลงของนักดนตรีหลาย ๆ คนแล้วค่อยตัดสินใจเลือก",
         },
+      },
+      results: {
+        thankYou: "ขอบคุณทุกคนที่ร่วมเดินทางเพื่อค้นหาตัวเองมาด้วยกัน",
+        seeYou: "แล้วพบกันใหม่นะ!",
+        viewResults: "กดเพื่อดูผลลัพธ์",
       },
     },
   },
