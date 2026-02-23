@@ -38,7 +38,9 @@ export default function SelfAssessmentQuizPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [animKey, setAnimKey] = useState(0);
-  const [interstitial, setInterstitial] = useState<"halfway" | "almostThere" | null>(null);
+  const [interstitial, setInterstitial] = useState<
+    "halfway" | "almostThere" | null
+  >(null);
 
   const current = allQuestions[currentIndex];
   const isFlipped = choiceFlips.current[currentIndex];
@@ -63,7 +65,8 @@ export default function SelfAssessmentQuizPage() {
   // Auto-dismiss interstitial after 2 seconds
   useEffect(() => {
     if (!interstitial) return;
-    const targetIndex = interstitial === "halfway" ? HALFWAY_INDEX : ALMOST_THERE_INDEX;
+    const targetIndex =
+      interstitial === "halfway" ? HALFWAY_INDEX : ALMOST_THERE_INDEX;
     const timer = setTimeout(() => {
       setInterstitial(null);
       goTo(targetIndex);
@@ -199,54 +202,6 @@ export default function SelfAssessmentQuizPage() {
             {t(rightChoice.key)}
           </button>
         </div>
-      </div>
-
-      {/* Navigation arrows */}
-      <div className="flex items-center justify-between pt-6">
-        <button
-          onClick={handleBack}
-          className="flex items-center gap-1 text-dark-brown/60 hover:text-dark-brown transition-colors cursor-pointer px-3 py-2 -ml-3"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="w-5 h-5"
-          >
-            <path
-              fillRule="evenodd"
-              d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <span className="text-sm font-medium">{t("quiz.back")}</span>
-        </button>
-
-        <button
-          onClick={handleForward}
-          disabled={!hasAnswered}
-          className={`flex items-center gap-1 transition-colors cursor-pointer px-3 py-2 -mr-3 ${
-            hasAnswered
-              ? "text-dark-brown/60 hover:text-dark-brown"
-              : "text-dark-brown/20 cursor-not-allowed"
-          }`}
-        >
-          <span className="text-sm font-medium">
-            {isLast && hasAnswered ? t("quiz.finish") : t("quiz.next")}
-          </span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="w-5 h-5"
-          >
-            <path
-              fillRule="evenodd"
-              d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
       </div>
     </div>
   );
