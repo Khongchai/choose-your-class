@@ -1,15 +1,47 @@
 "use client";
 
-import Image from "next/image";
+import { FlickerImage } from "@/components/FlickerImage";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
+type ImageTuple = [string, string];
+
 const classes = [
-  { id: "warrior", label: "Warrior", image: "/warrior.jpg" },
-  { id: "druid", label: "Druid", image: "/druid.jpg" },
-  { id: "mage", label: "Mage", image: "/mage.jpg" },
-  { id: "alchemist", label: "Alchemist", image: "/alchemist.jpg" },
+  {
+    id: "warrior",
+    label: "Warrior",
+    image: [
+      "/sillhouettes/warrior1.png",
+      "/sillhouettes/warrior2.png",
+    ] as ImageTuple,
+  },
+  {
+    id: "druid",
+    label: "Druid",
+    image: [
+      "/sillhouettes/druid1.png",
+      "/sillhouettes/druid2.png",
+    ] as ImageTuple,
+  },
+  {
+    id: "mage",
+    label: "Mage",
+    image: ["/sillhouettes/mage1.png", "/sillhouettes/mage2.png"] as ImageTuple,
+  },
+  {
+    id: "alchemist",
+    label: "Alchemist",
+    image: [
+      "/sillhouettes/alchemist1.png",
+      "/sillhouettes/alchemist2.png",
+    ] as ImageTuple,
+  },
 ];
+
+const chooseYourClassText = [
+  "/sillhouettes/cyc_1.png",
+  "/sillhouettes/cyc_2.png",
+] as ImageTuple;
 
 export default function ChooseClass() {
   const router = useRouter();
@@ -23,32 +55,30 @@ export default function ChooseClass() {
     <div className="animate-page flex min-h-dvh flex-col items-center justify-between px-6 py-16 sm:py-24">
       {/* Top section */}
       <div className="flex flex-col items-center gap-4">
-        <Image
-          src="/title-image.png"
+        <FlickerImage
+          src={chooseYourClassText}
           alt="Choose Your Class"
-          className="pointer-events-none select-none w-50 sm:w-80 scale-[1.7] md:scale-[2]"
+          className="pointer-events-none select-none w-70 sm:w-100"
           width={320}
           height={160}
           priority
         />
-        <p className="text-dark-brown/70 text-lg sm:text-2xl leading-relaxed text-center whitespace-pre-line">
-          {t("home.subtitle")}
-        </p>
       </div>
 
       {/* Class icons */}
-      <div className="flex items-center justify-center gap-6 sm:gap-10 my-12 sm:my-16">
+      <div className="flex items-center justify-center gap-3 sm:gap-20 my-12 sm:my-16">
         {classes.map((cls) => (
-          <div key={cls.id} className="flex flex-col items-center gap-3">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden transition-opacity duration-200 hover:opacity-80">
-              <Image
-                src={cls.image}
-                alt={cls.label}
-                width={80}
-                height={80}
-                className="w-full h-full object-cover"
-              />
-            </div>
+          <div
+            key={cls.id}
+            className="w-16 h-24 sm:w-20 sm:h-28 scale-110 sm:scale-200"
+          >
+            <FlickerImage
+              src={cls.image}
+              alt={cls.label}
+              width={256}
+              height={363}
+              className="w-full h-full object-contain"
+            />
           </div>
         ))}
       </div>
@@ -57,7 +87,7 @@ export default function ChooseClass() {
       <div className="flex flex-col items-center gap-6">
         <button
           onClick={handlePlay}
-          className="px-16 sm:px-20 py-3.5 sm:py-4 rounded-lg text-lg sm:text-xl font-semibold tracking-wide transition-colors duration-200 cursor-pointer bg-dark-brown text-peach hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
+          className="px-16 sm:px-20 py-3.5 text-white sm:py-4 rounded-lg text-lg sm:text-xl font-semibold tracking-wide transition-colors duration-200 cursor-pointer bg-dark-brown  hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
         >
           {t("home.play")}
         </button>
