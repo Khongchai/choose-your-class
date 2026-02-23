@@ -163,7 +163,7 @@ export const resources = {
         master: "ตัด",
       },
       consent: {
-        title: "หนังสือแสดงความยินยอม",
+        title: "เอกสารแสดงความยินยอม",
         intro:
           "แบบสอบถามนี้เป็นส่วนหนึ่งของการศึกษานำร่องในรายวิชาระดับปริญญาเอก",
         studyTitle: "Choose Your Class",
