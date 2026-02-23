@@ -92,6 +92,94 @@ export const resources = {
       journey: {
         title: "Let's begin the journey",
       },
+      quiz: {
+        halfway: "You're halfway there!",
+        back: "Back",
+        next: "Next",
+        finish: "Finish",
+        progress: "{{current}} / {{total}}",
+        q1: {
+          question:
+            "When you hear a song you've never heard before, you tend to...",
+          ce: "Let yourself go — absorbing the emotions and atmosphere of the song",
+          ac: "Try to analyze the instruments, rhythm, or chord progressions used in the song",
+        },
+        q2: {
+          question:
+            'What is your definition of a "great" piece of music?',
+          ce: "A piece full of emotion that can touch the listener's heart",
+          ac: "A piece with complexity in terms of composition techniques and playing technique",
+        },
+        q3: {
+          question: "If you had to compose a song, you would...",
+          ce: "Hum a melody first, then put that melody into the song",
+          ac: "Plan the main structure first, such as form or chord progression, as a framework",
+        },
+        q4: {
+          question:
+            "How do you tend to memorize intervals?",
+          ce: "By the sound, or by the finger positions on my instrument",
+          ac: "By visualizing the note positions on the staff",
+        },
+        q5: {
+          question: "When learning about time signatures, you prefer to...",
+          ce: "Listen to examples of songs in that time signature in many different styles",
+          ac: "Learn the theoretical rules for grouping beats in that time signature",
+        },
+        q6: {
+          question:
+            "In studying music theory, you tend to prefer a teacher who...",
+          ce: "Demonstrates musical examples and organizes activities related to the content, allowing discussion and exchange with classmates",
+          ac: "Provides teaching materials that explain the principles, origins, rules, or formulas for finding answers in the topic being studied",
+        },
+        q7: {
+          question:
+            'You feel you "understand" a piece of music more deeply when you...',
+          ce: "Have absorbed the emotions and atmosphere of the music through performing it yourself",
+          ac: "Know the background, theoretical structure, or reasons behind the composition",
+        },
+        q8: {
+          question:
+            "You have the chance to try an instrument you've never played before in your life. You would...",
+          ae: "Try playing the instrument by yourself first",
+          ro: "Look for a manual, or ask someone who plays it what keys produce what sounds",
+        },
+        q9: {
+          question:
+            "You make a mistake during sight-reading. You would...",
+          ae: "Start playing again from the beginning immediately",
+          ro: "Pause to think about why you played it wrong, then start again",
+        },
+        q10: {
+          question:
+            "How would you approach a rhythmic dictation?",
+          ae: "Start writing down on paper immediately as I hear the sounds",
+          ro: "Listen to the whole thing at least once first to get familiar with the overall structure",
+        },
+        q11: {
+          question:
+            "When you look at a scale on paper, what do you notice first?",
+          ae: "The vibe — try to hum and think about how I am going to play it",
+          ro: "The theoretical stuff: whole steps, half steps, and accidentals, etc.",
+        },
+        q12: {
+          question:
+            "Oops! You just clapped a rhythm wrong. What's your next move?",
+          ae: "Not a big deal — I just dive back in and try it again immediately",
+          ro: "Stop and analyze where the mistake happened before trying again",
+        },
+        q13: {
+          question: "You see this note grouping. What's your plan?",
+          ae: "I tap my foot and play it to find the groove",
+          ro: "I try to subdivide the beats to find the strong and weak pulses",
+        },
+        q14: {
+          question:
+            "Which of these sounds most like you in music theory class?",
+          ae: '"What happens if I try to play this and use it?"',
+          ro: '"Wait, why does that work? Let me look at that again..."',
+        },
+      },
     },
   },
   th: {
@@ -186,6 +274,94 @@ export const resources = {
       },
       journey: {
         title: "ออกเดินทางกันเถอะ",
+      },
+      quiz: {
+        halfway: "คุณเดินทางมาถึงครึ่งทางแล้วนะ!",
+        back: "ย้อนกลับ",
+        next: "ถัดไป",
+        finish: "เสร็จสิ้น",
+        progress: "{{current}} / {{total}}",
+        q1: {
+          question:
+            "เมื่อคุณได้ยินเพลงที่คุณไม่เคยได้ยินมาก่อน คุณมักจะ...",
+          ce: "ปล่อยตัวปล่อยใจ เน้นซึมซับอารมณ์และบรรยากาศของเพลง",
+          ac: "พยายามวิเคราะห์เครื่องดนตรี จังหวะ หรือทางเดินคอร์ดที่ใช้ในเพลง",
+        },
+        q2: {
+          question:
+            'นิยามของเพลงที่ "สุดยอด" สำหรับคุณคือแบบไหน',
+          ce: "เพลงที่เต็มไปด้วยอารมณ์ สามารถเข้าถึงใจคนฟังได้",
+          ac: "เพลงที่มีความซับซ้อนในเชิงของกลวิธีการประพันธ์และเทคนิคการเล่น",
+        },
+        q3: {
+          question: "ถ้าต้องแต่งเพลงขึ้นมาสักเพลง คุณจะ...",
+          ce: "ฮัมทำนองขึ้นมา แล้วใส่ทำนองนั้นลงไปในเพลงก่อน",
+          ac: "กำหนดโครงสร้างหลัก เช่น ท่อน หรือทางเดินคอร์ดเอาไว้เป็นกรอบก่อน",
+        },
+        q4: {
+          question:
+            "คุณมีแนวโน้มที่จำคู่เสียงด้วยวิธีการแบบไหน",
+          ce: "จำเป็นเสียง หรือตำแหน่งของมือบนเครื่องมือเอก",
+          ac: "จำเป็นภาพ หรือตำแหน่งตัวโน้ตบนบรรทัดห้าเส้น",
+        },
+        q5: {
+          question: "ในการเรียนรู้เรื่องอัตราจังหวะ คุณชอบที่จะ...",
+          ce: "ฟังตัวอย่างของเพลงที่อยู่ในอัตราจังหวะนั้นหลาย ๆ แบบ",
+          ac: "เรียนรู้กฎเกณฑ์ทางทฤษฎีในการแบ่งกลุ่มจังหวะในอัตราจังหวะนั้น",
+        },
+        q6: {
+          question:
+            "ในการเรียนทฤษฎีดนตรี คุณมีแนวโน้มที่จะชอบอาจารย์ที่",
+          ce: "แสดงตัวอย่างเพลง และจัดกิจกรรมที่เกี่ยวกับเนื้อหาให้ได้ลองแลกเปลี่ยนกับเพื่อนในห้อง",
+          ac: "มีเอกสารประกอบการสอนที่อธิบายถึงหลักการ ที่มา กฎ หรือสูตรในการหาคำตอบในเรื่องที่เรียน",
+        },
+        q7: {
+          question:
+            'คุณจะรู้สึกว่าคุณ "เข้าใจ" บทเพลงหนึ่งได้อย่างลึกซึ้งมากขึ้น เมื่อคุณ...',
+          ce: "ได้ซึมซับอารมณ์และบรรยากาศของเพลงผ่านการบรรเลงด้วยตนเอง",
+          ac: "ได้รู้ที่มาที่ไป โครงสร้างทางทฤษฎี หรือเหตุผลเบื้องหลังการประพันธ์",
+        },
+        q8: {
+          question:
+            "คุณมีโอกาสได้ลองเครื่องดนตรีที่คุณไม่เคยเล่นมาก่อนในชีวิต คุณจะ",
+          ae: "ลองเล่นเครื่องดนตรีด้วยตัวเองก่อน",
+          ro: "มองหาคู่มือ หรือถามคนที่เล่นเป็นว่าเครื่องนี้กดตรงไหนได้เสียงอะไร",
+        },
+        q9: {
+          question:
+            "คุณบรรเลงผิดพลาดระหว่างการอ่านโน้ตฉับพลัน (Sight-Reading) คุณจะ...",
+          ae: "เริ่มเล่นใหม่ตั้งแต่แรกทันที",
+          ro: "ไตร่ตรองสักครู่ว่าเล่นผิดเพราะอะไร แล้วค่อยเริ่มเล่นใหม่",
+        },
+        q10: {
+          question:
+            "คุณจะทำอย่างไร หากต้องจดจังหวะตามเสียงที่ได้ยิน (Rhythmic Dictation)",
+          ae: "เขียนทดลงบนกระดาษทันทีที่ได้ยินเสียง",
+          ro: "ฟังให้จบก่อนอย่างน้อย 1 ครั้งเพื่อให้คุ้นเคยกับโครงสร้างโดยรวม",
+        },
+        q11: {
+          question:
+            "เมื่อมองบันไดเสียงบนกระดาษ สิ่งแรกที่คุณสังเกตคือ...",
+          ae: "อารมณ์ของมัน — ลองฮัมดู แล้วนึกว่าจะเล่นมันยังไง",
+          ro: "เรื่องทฤษฎี: ขั้นเต็ม ครึ่งเสียง เครื่องหมายแปลงเสียง ฯลฯ",
+        },
+        q12: {
+          question:
+            "อุ๊ย! คุณเพิ่งตบจังหวะผิด จะทำยังไงต่อ?",
+          ae: "ไม่เป็นไร — กลับไปลองใหม่เลยทันที",
+          ro: "หยุดวิเคราะห์ก่อนว่าผิดตรงไหน แล้วค่อยลองใหม่",
+        },
+        q13: {
+          question: "คุณเห็นกลุ่มโน้ตนี้ แผนของคุณคือ...",
+          ae: "เคาะเท้าแล้วลองเล่นเพื่อหาจังหวะ",
+          ro: "พยายามแบ่งจังหวะย่อยเพื่อหาจังหวะหนักและเบา",
+        },
+        q14: {
+          question:
+            "ข้อไหนเหมือนตัวคุณมากที่สุดในห้องเรียนทฤษฎีดนตรี?",
+          ae: '"ลองเล่นดูแล้วเอาไปใช้เลยดีกว่า?"',
+          ro: '"เดี๋ยวนะ ทำไมมันถึงเป็นแบบนั้น? ขอดูอีกทีนะ..."',
+        },
       },
     },
   },

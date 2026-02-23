@@ -1,59 +1,150 @@
+export type Axis = "Y" | "X";
+
 export interface SelfAssessmentQuestion {
   id: number;
-  question: string;
+  axis: Axis;
+  /** Translation key for the question text */
+  questionKey: string;
   /** Optional image path (relative to /public) shown between question and choices */
   image?: string;
-  ro: string;
-  ae: string;
+  /** Translation key for the left choice (CE for Y-axis, AE for X-axis) */
+  leftKey: string;
+  /** Translation key for the right choice (AC for Y-axis, RO for X-axis) */
+  rightKey: string;
+  /** Left choice value: "CE" for Y-axis, "AE" for X-axis */
+  leftValue: string;
+  /** Right choice value: "AC" for Y-axis, "RO" for X-axis */
+  rightValue: string;
 }
 
 const questions: SelfAssessmentQuestion[] = [
+  // ─── Y-axis: CE vs AC (questions 1–7) ────────────────────────────────
   {
     id: 1,
-    question:
-      'When you hear "C Major Triad," what\'s the first thing you see in your mind?',
-    ro: "The blueprint: A Root, Major 3rd, and minor 3rd stacked up.",
-    ae: "My fingers: I can feel myself playing it on my instrument.",
+    axis: "Y",
+    questionKey: "quiz.q1.question",
+    leftKey: "quiz.q1.ce",
+    rightKey: "quiz.q1.ac",
+    leftValue: "CE",
+    rightValue: "AC",
   },
   {
     id: 2,
-    question: "During a rhythm dictation, what is your plan?",
-    ro: "I listen to the whole phrase first to see the overall structure.",
-    ae: "I start jotting down rhythms immediately as I hear them.",
+    axis: "Y",
+    questionKey: "quiz.q2.question",
+    leftKey: "quiz.q2.ce",
+    rightKey: "quiz.q2.ac",
+    leftValue: "CE",
+    rightValue: "AC",
   },
   {
     id: 3,
-    question:
-      "You're handed a brand new piece for sight-reading. What do you do?",
-    ro: "I scan the whole page silently, trying to sing the notes in my head.",
-    ae: "I start humming or tapping the rhythm out loud right away.",
+    axis: "Y",
+    questionKey: "quiz.q3.question",
+    leftKey: "quiz.q3.ce",
+    rightKey: "quiz.q3.ac",
+    leftValue: "CE",
+    rightValue: "AC",
   },
   {
     id: 4,
-    question: "When you look at a scale on paper, what do you notice first?",
-    ro: "The theoretical stuff: whole steps, half steps, and accidentals, etc.",
-    ae: "The vibe: Try to hum and think about how I am going to play it.",
+    axis: "Y",
+    questionKey: "quiz.q4.question",
+    leftKey: "quiz.q4.ce",
+    rightKey: "quiz.q4.ac",
+    leftValue: "CE",
+    rightValue: "AC",
   },
   {
     id: 5,
-    question:
-      "Oops! You just clapped a rhythm wrong. What's your next move?",
-    ro: "Stop and analyze where the mistake happened before trying again.",
-    ae: "Not a big deal — I just dive back in and try it again immediately.",
+    axis: "Y",
+    questionKey: "quiz.q5.question",
+    leftKey: "quiz.q5.ce",
+    rightKey: "quiz.q5.ac",
+    leftValue: "CE",
+    rightValue: "AC",
   },
   {
     id: 6,
-    question: "You see this note grouping. What's your plan?",
-    image: "/note-grouping.png",
-    ro: "I am trying to subdivide the beats to find the strong and weak pulses.",
-    ae: "I tap my foot and play it to find the groove.",
+    axis: "Y",
+    questionKey: "quiz.q6.question",
+    leftKey: "quiz.q6.ce",
+    rightKey: "quiz.q6.ac",
+    leftValue: "CE",
+    rightValue: "AC",
   },
   {
     id: 7,
-    question:
-      "Which of these sounds most like you in music theory class?",
-    ro: '"Wait, why does that work? Let me look at that again..."',
-    ae: '"What happens if I try to play this and use it?"',
+    axis: "Y",
+    questionKey: "quiz.q7.question",
+    leftKey: "quiz.q7.ce",
+    rightKey: "quiz.q7.ac",
+    leftValue: "CE",
+    rightValue: "AC",
+  },
+  // ─── X-axis: AE vs RO (questions 8–14) ───────────────────────────────
+  {
+    id: 8,
+    axis: "X",
+    questionKey: "quiz.q8.question",
+    leftKey: "quiz.q8.ae",
+    rightKey: "quiz.q8.ro",
+    leftValue: "AE",
+    rightValue: "RO",
+  },
+  {
+    id: 9,
+    axis: "X",
+    questionKey: "quiz.q9.question",
+    leftKey: "quiz.q9.ae",
+    rightKey: "quiz.q9.ro",
+    leftValue: "AE",
+    rightValue: "RO",
+  },
+  {
+    id: 10,
+    axis: "X",
+    questionKey: "quiz.q10.question",
+    leftKey: "quiz.q10.ae",
+    rightKey: "quiz.q10.ro",
+    leftValue: "AE",
+    rightValue: "RO",
+  },
+  {
+    id: 11,
+    axis: "X",
+    questionKey: "quiz.q11.question",
+    leftKey: "quiz.q11.ae",
+    rightKey: "quiz.q11.ro",
+    leftValue: "AE",
+    rightValue: "RO",
+  },
+  {
+    id: 12,
+    axis: "X",
+    questionKey: "quiz.q12.question",
+    leftKey: "quiz.q12.ae",
+    rightKey: "quiz.q12.ro",
+    leftValue: "AE",
+    rightValue: "RO",
+  },
+  {
+    id: 13,
+    axis: "X",
+    questionKey: "quiz.q13.question",
+    leftKey: "quiz.q13.ae",
+    rightKey: "quiz.q13.ro",
+    leftValue: "AE",
+    rightValue: "RO",
+  },
+  {
+    id: 14,
+    axis: "X",
+    questionKey: "quiz.q14.question",
+    leftKey: "quiz.q14.ae",
+    rightKey: "quiz.q14.ro",
+    leftValue: "AE",
+    rightValue: "RO",
   },
 ];
 

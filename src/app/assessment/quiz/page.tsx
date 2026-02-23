@@ -1,11 +1,12 @@
-/* eslint-disable react-hooks/purity */
 "use client";
 
 import { useGame } from "@/context/GameContext";
 import questions from "@/data/selfAssessmentQuestions";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+
+const HALFWAY_INDEX = 7; // Show interstitial after Y-axis (7 questions), before X-axis
 
 function shuffle<T>(arr: T[]): T[] {
   const copy = [...arr];
@@ -19,34 +20,39 @@ function shuffle<T>(arr: T[]): T[] {
 export default function SelfAssessmentQuizPage() {
   const router = useRouter();
   const { setSelfAssessmentAnswers } = useGame();
+  const { t } = useTranslation();
 
-  // Randomize question order once on mount
-  const shuffledQuestions = useMemo(() => shuffle(questions), []);
+  // Split into Y-axis and X-axis groups, shuffle within each group
+  const allQuestions = useMemo(() => {
+    const yGroup = questions.filter((q) => q.axis === "Y");
+    const xGroup = questions.filter((q) => q.axis === "X");
+    return [...shuffle(yGroup), ...shuffle(xGroup)];
+  }, []);
 
-  // Randomize whether RO or AE appears on the left for each question
+  // Randomize whether left/right choices are flipped for each question
   const choiceFlips = useMemo(
-    () => shuffledQuestions.map(() => Math.random() < 0.5),
-    [shuffledQuestions],
+    () => allQuestions.map(() => Math.random() < 0.5),
+    [allQuestions],
   );
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  // Local answers: keyed by shuffled index
-  const [answers, setAnswers] = useState<Record<number, "RO" | "AE">>({});
+  const [answers, setAnswers] = useState<Record<number, string>>({});
   const [animKey, setAnimKey] = useState(0);
+  const [showHalfway, setShowHalfway] = useState(false);
 
-  const current = shuffledQuestions[currentIndex];
+  const current = allQuestions[currentIndex];
   const isFlipped = choiceFlips[currentIndex];
   const selected = answers[currentIndex] ?? null;
 
   const leftChoice = isFlipped
-    ? { type: "AE" as const, text: current.ae }
-    : { type: "RO" as const, text: current.ro };
+    ? { value: current.rightValue, key: current.rightKey }
+    : { value: current.leftValue, key: current.leftKey };
   const rightChoice = isFlipped
-    ? { type: "RO" as const, text: current.ro }
-    : { type: "AE" as const, text: current.ae };
+    ? { value: current.leftValue, key: current.leftKey }
+    : { value: current.rightValue, key: current.rightKey };
 
   const isFirst = currentIndex === 0;
-  const isLast = currentIndex === shuffledQuestions.length - 1;
+  const isLast = currentIndex === allQuestions.length - 1;
   const hasAnswered = selected !== null;
 
   const goTo = useCallback((index: number) => {
@@ -54,39 +60,50 @@ export default function SelfAssessmentQuizPage() {
     setAnimKey((prev) => prev + 1);
   }, []);
 
+  // Auto-dismiss halfway interstitial after 2 seconds
+  useEffect(() => {
+    if (!showHalfway) return;
+    const timer = setTimeout(() => {
+      setShowHalfway(false);
+      goTo(HALFWAY_INDEX);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [showHalfway, goTo]);
+
+  const submitAnswers = useCallback(
+    (updatedAnswers: Record<number, string>) => {
+      const allAnswers = allQuestions.map((q, i) => ({
+        questionId: q.id,
+        choice: updatedAnswers[i]!,
+      }));
+      setSelfAssessmentAnswers(allAnswers);
+      router.push("/results");
+    },
+    [allQuestions, setSelfAssessmentAnswers, router],
+  );
+
   const handleSelect = useCallback(
-    (choice: "RO" | "AE") => {
+    (choice: string) => {
       const isNewAnswer = answers[currentIndex] === undefined;
 
       setAnswers((prev) => ({ ...prev, [currentIndex]: choice }));
 
-      // Auto-advance only when answering a new (unvisited) question
       if (isNewAnswer) {
         setTimeout(() => {
           if (!isLast) {
-            goTo(currentIndex + 1);
+            const nextIndex = currentIndex + 1;
+            if (nextIndex === HALFWAY_INDEX) {
+              setShowHalfway(true);
+            } else {
+              goTo(nextIndex);
+            }
           } else {
-            // Last question — auto-submit and navigate
-            const updatedAnswers = { ...answers, [currentIndex]: choice };
-            const allAnswers = shuffledQuestions.map((q, i) => ({
-              questionId: q.id,
-              choice: updatedAnswers[i]!,
-            }));
-            setSelfAssessmentAnswers(allAnswers);
-            router.push("/performance");
+            submitAnswers({ ...answers, [currentIndex]: choice });
           }
         }, 400);
       }
     },
-    [
-      answers,
-      currentIndex,
-      isLast,
-      goTo,
-      shuffledQuestions,
-      setSelfAssessmentAnswers,
-      router,
-    ],
+    [answers, currentIndex, isLast, goTo, submitAnswers],
   );
 
   const handleBack = useCallback(() => {
@@ -100,54 +117,51 @@ export default function SelfAssessmentQuizPage() {
   const handleForward = useCallback(() => {
     if (!hasAnswered) return;
     if (isLast) {
-      // Submit all answers to context and navigate
-      const allAnswers = shuffledQuestions.map((q, i) => ({
-        questionId: q.id,
-        choice: answers[i]!,
-      }));
-      setSelfAssessmentAnswers(allAnswers);
-      router.push("/performance");
+      submitAnswers(answers);
     } else {
-      goTo(currentIndex + 1);
+      const nextIndex = currentIndex + 1;
+      if (nextIndex === HALFWAY_INDEX) {
+        setShowHalfway(true);
+      } else {
+        goTo(nextIndex);
+      }
     }
-  }, [
-    hasAnswered,
-    isLast,
-    currentIndex,
-    shuffledQuestions,
-    answers,
-    setSelfAssessmentAnswers,
-    router,
-    goTo,
-  ]);
+  }, [hasAnswered, isLast, currentIndex, answers, submitAnswers, goTo]);
 
-  const animClass = "animate-crossfade";
+  // ─── Halfway interstitial ─────────────────────────────────────────────
+  if (showHalfway) {
+    return (
+      <div className="animate-page flex min-h-dvh flex-col items-center justify-center px-6">
+        <h1 className="text-3xl sm:text-4xl font-bold text-dark-brown text-center leading-snug">
+          {t("quiz.halfway")}
+        </h1>
+      </div>
+    );
+  }
 
+  // ─── Quiz question ────────────────────────────────────────────────────
   return (
     <div className="flex min-h-dvh flex-col px-6 py-10 sm:py-16">
-      {/* Question area — keyed for re-animation */}
       <div
         key={animKey}
-        className={`${animClass} flex flex-col items-center justify-center flex-1 gap-8 sm:gap-12 max-w-lg mx-auto w-full`}
+        className="animate-crossfade flex flex-col items-center justify-center flex-1 gap-8 sm:gap-12 max-w-lg mx-auto w-full"
       >
         {/* Progress */}
         <p className="text-dark-brown/40 text-sm font-semibold tracking-wide">
-          {currentIndex + 1} / {shuffledQuestions.length}
+          {currentIndex + 1} / {allQuestions.length}
         </p>
 
         {/* Question text */}
         <p className="text-dark-brown text-center text-lg sm:text-xl leading-relaxed font-medium">
-          {current.question}
+          {t(current.questionKey)}
         </p>
 
         {/* Optional image */}
         {current.image && (
           <div className="w-full flex justify-center">
-            <Image
+            <img
               src={current.image}
               alt="Music notation"
-              width={400}
-              height={120}
               className="max-w-full h-auto"
             />
           </div>
@@ -155,47 +169,36 @@ export default function SelfAssessmentQuizPage() {
 
         {/* Choices */}
         <div className="grid grid-cols-2 gap-4 w-full">
-          {/* Left choice */}
           <button
-            onClick={() => handleSelect(leftChoice.type)}
+            onClick={() => handleSelect(leftChoice.value)}
             className={`rounded-lg px-4 py-5 sm:py-6 text-sm sm:text-base font-medium text-center leading-snug transition-[colors,opacity] duration-200 cursor-pointer ${
-              selected === leftChoice.type
+              selected === leftChoice.value
                 ? "ring-2 ring-dark-brown ring-offset-2 ring-offset-peach"
                 : selected
                   ? "opacity-40"
                   : "hover:brightness-95"
-            } ${
-              leftChoice.type === "RO"
-                ? "bg-[#F5C77E] text-dark-brown"
-                : "bg-[#E8A0BF]/40 text-dark-brown"
-            }`}
+            } bg-cream/80 text-dark-brown`}
           >
-            {leftChoice.text}
+            {t(leftChoice.key)}
           </button>
 
-          {/* Right choice */}
           <button
-            onClick={() => handleSelect(rightChoice.type)}
+            onClick={() => handleSelect(rightChoice.value)}
             className={`rounded-lg px-4 py-5 sm:py-6 text-sm sm:text-base font-medium text-center leading-snug transition-[colors,opacity] duration-200 cursor-pointer ${
-              selected === rightChoice.type
+              selected === rightChoice.value
                 ? "ring-2 ring-dark-brown ring-offset-2 ring-offset-peach"
                 : selected
                   ? "opacity-40"
                   : "hover:brightness-95"
-            } ${
-              rightChoice.type === "AE"
-                ? "bg-[#E8A0BF]/40 text-dark-brown"
-                : "bg-[#F5C77E] text-dark-brown"
-            }`}
+            } bg-cream/80 text-dark-brown`}
           >
-            {rightChoice.text}
+            {t(rightChoice.key)}
           </button>
         </div>
       </div>
 
       {/* Navigation arrows */}
       <div className="flex items-center justify-between pt-6">
-        {/* Back */}
         <button
           onClick={handleBack}
           className="flex items-center gap-1 text-dark-brown/60 hover:text-dark-brown transition-colors cursor-pointer px-3 py-2 -ml-3"
@@ -203,7 +206,7 @@ export default function SelfAssessmentQuizPage() {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
-            fill="currentColorWarrior"
+            fill="currentColor"
             className="w-5 h-5"
           >
             <path
@@ -212,10 +215,9 @@ export default function SelfAssessmentQuizPage() {
               clipRule="evenodd"
             />
           </svg>
-          <span className="text-sm font-medium">Back</span>
+          <span className="text-sm font-medium">{t("quiz.back")}</span>
         </button>
 
-        {/* Forward / Finish */}
         <button
           onClick={handleForward}
           disabled={!hasAnswered}
@@ -226,7 +228,7 @@ export default function SelfAssessmentQuizPage() {
           }`}
         >
           <span className="text-sm font-medium">
-            {isLast && hasAnswered ? "Finish" : "Next"}
+            {isLast && hasAnswered ? t("quiz.finish") : t("quiz.next")}
           </span>
           <svg
             xmlns="http://www.w3.org/2000/svg"

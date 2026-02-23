@@ -4,14 +4,7 @@ import { createContext, ReactNode, useContext, useState } from "react";
 
 interface SelfAssessmentAnswer {
   questionId: number;
-  choice: "AE" | "RO";
-}
-
-interface PerformanceAnswer {
-  questionId: number;
-  choice: "CE" | "AC";
-  timeTaken: number; // seconds, 0 = timeout
-  score: 0 | 1;
+  choice: string; // "CE" | "AC" for Y-axis, "AE" | "RO" for X-axis
 }
 
 type Language = "en" | "th";
@@ -40,7 +33,6 @@ interface GameState {
   skillLevel: SkillLevel | null;
   consentGiven: boolean;
   selfAssessmentAnswers: SelfAssessmentAnswer[];
-  performanceAnswers: PerformanceAnswer[];
 }
 
 interface GameContextType {
@@ -55,8 +47,6 @@ interface GameContextType {
   setConsentGiven: (consent: boolean) => void;
   addSelfAssessmentAnswer: (answer: SelfAssessmentAnswer) => void;
   setSelfAssessmentAnswers: (answers: SelfAssessmentAnswer[]) => void;
-  addPerformanceAnswer: (answer: PerformanceAnswer) => void;
-  setPerformanceAnswers: (answers: PerformanceAnswer[]) => void;
   resetState: () => void;
 }
 
@@ -70,7 +60,6 @@ const initialState: GameState = {
   skillLevel: null,
   consentGiven: false,
   selfAssessmentAnswers: [],
-  performanceAnswers: [],
 };
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -121,17 +110,6 @@ export function GameProvider({ children }: { children: ReactNode }) {
     setState((prev) => ({ ...prev, selfAssessmentAnswers: answers }));
   };
 
-  const addPerformanceAnswer = (answer: PerformanceAnswer) => {
-    setState((prev) => ({
-      ...prev,
-      performanceAnswers: [...prev.performanceAnswers, answer],
-    }));
-  };
-
-  const setPerformanceAnswers = (answers: PerformanceAnswer[]) => {
-    setState((prev) => ({ ...prev, performanceAnswers: answers }));
-  };
-
   const resetState = () => {
     setState(initialState);
   };
@@ -150,8 +128,6 @@ export function GameProvider({ children }: { children: ReactNode }) {
         setConsentGiven,
         addSelfAssessmentAnswer,
         setSelfAssessmentAnswers,
-        addPerformanceAnswer,
-        setPerformanceAnswers,
         resetState,
       }}
     >
