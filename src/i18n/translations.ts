@@ -94,6 +94,7 @@ export const resources = {
       },
       quiz: {
         halfway: "You're halfway there!",
+        almostThere: "Almost there — just a little more!",
         back: "Back",
         next: "Next",
         finish: "Finish",
@@ -157,6 +158,23 @@ export const resources = {
             "If a teacher asks you to clap the rhythm from the image below, how would you prepare within 30 seconds before performing?",
           ae: "Tap my foot and try actually clapping — as many times as possible before time runs out",
           ro: "Look at the time signature, then try subdividing the beats mentally",
+        },
+        q12: {
+          question:
+            "Do you take notes when your teacher is giving you a lesson on your major instrument?",
+          ae: "No — but if I do, I only focus on techniques related to playing the instrument",
+          ro: "Yes — I write down various details, including my own practice notes",
+        },
+        q13: {
+          question: "Do you enjoy improvisation?",
+          ae: "Yes — it feels challenging and I get to try things outside the box",
+          ro: "Not really — I enjoy preparing and practicing to play accurately from the score more",
+        },
+        q14: {
+          question:
+            "Your teacher assigns you to interpret a piece you are performing. You would...",
+          ae: "Try playing it in many different ways to find the sound I personally like",
+          ro: "Study the history of the piece, listen to many performers, then decide on my interpretation",
         },
       },
     },
@@ -256,6 +274,7 @@ export const resources = {
       },
       quiz: {
         halfway: "คุณเดินทางมาถึงครึ่งทางแล้วนะ!",
+        almostThere: "ใกล้ถึงที่หมายแล้ว อีกนิดเดียว!",
         back: "ย้อนกลับ",
         next: "ถัดไป",
         finish: "เสร็จสิ้น",
@@ -319,6 +338,23 @@ export const resources = {
             "ถ้าอาจารย์อยากให้คุณตบจังหวะตามภาพนี้ คุณจะเตรียมตัวอย่างไรภายในระยะเวลา 30 วินาที ก่อนแสดงจริง",
           ae: "เคาะเท้าแล้วลองตบมือจริง ให้เยอะที่สุดก่อนหมดเวลา",
           ro: "ดูเครื่องหมายกำหนดจังหวะ แล้วลองแบ่งย่อยจังหวะในใจ",
+        },
+        q12: {
+          question:
+            "คุณจดบันทึกเวลาอาจารย์กำลังสอนเครื่องมือเอกของคุณหรือไม่",
+          ae: "ไม่ แต่ถ้าจด จะเน้นแค่เทคนิคที่เกี่ยวข้องกับการเล่นเครื่อง",
+          ro: "ใช่ จดรายละเอียดต่าง ๆ รวมไปถึงบันทึกการซ้อมของตัวเอง",
+        },
+        q13: {
+          question: "คุณชอบการเล่นแบบด้นสด (Improvisation) ไหม",
+          ae: "ชอบ รู้สึกว่าท้าทายและได้ลองทำอะไรนอกกรอบ",
+          ro: "ไม่ค่อยชอบ สนุกกับเตรียมตัวการซ้อมให้แม่นยำตามโน้ตมากกว่า",
+        },
+        q14: {
+          question:
+            "คุณได้รับมอบหมายจากอาจารย์ให้ลองตีความบทเพลงที่ตัวเองเล่น คุณจะ...",
+          ae: "ลองเล่นเองหลาย ๆ แบบ เพื่อหาเสียงที่ตัวเองชอบ",
+          ro: "ศึกษาประวัติเพลง ฟังการบรรเลงของนักดนตรีหลาย ๆ คนแล้วค่อยตัดสินใจเลือก",
         },
       },
     },

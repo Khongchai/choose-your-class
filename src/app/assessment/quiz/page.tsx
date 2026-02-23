@@ -1,12 +1,15 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/purity */
 "use client";
 
 import { useGame } from "@/context/GameContext";
 import questions from "@/data/selfAssessmentQuestions";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const HALFWAY_INDEX = 7; // Show interstitial after Y-axis (7 questions), before X-axis
+const ALMOST_THERE_INDEX = 12; // Show interstitial after 12th question (5th X-axis)
 
 function shuffle<T>(arr: T[]): T[] {
   const copy = [...arr];
@@ -29,19 +32,16 @@ export default function SelfAssessmentQuizPage() {
     return [...shuffle(yGroup), ...shuffle(xGroup)];
   }, []);
 
-  // Randomize whether left/right choices are flipped for each question
-  const choiceFlips = useMemo(
-    () => allQuestions.map(() => Math.random() < 0.5),
-    [allQuestions],
-  );
+  // Randomize whether left/right choices are flipped for each question (stable ref)
+  const choiceFlips = useRef(allQuestions.map(() => Math.random() < 0.5));
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [animKey, setAnimKey] = useState(0);
-  const [showHalfway, setShowHalfway] = useState(false);
+  const [interstitial, setInterstitial] = useState<"halfway" | "almostThere" | null>(null);
 
   const current = allQuestions[currentIndex];
-  const isFlipped = choiceFlips[currentIndex];
+  const isFlipped = choiceFlips.current[currentIndex];
   const selected = answers[currentIndex] ?? null;
 
   const leftChoice = isFlipped
@@ -60,15 +60,16 @@ export default function SelfAssessmentQuizPage() {
     setAnimKey((prev) => prev + 1);
   }, []);
 
-  // Auto-dismiss halfway interstitial after 2 seconds
+  // Auto-dismiss interstitial after 2 seconds
   useEffect(() => {
-    if (!showHalfway) return;
+    if (!interstitial) return;
+    const targetIndex = interstitial === "halfway" ? HALFWAY_INDEX : ALMOST_THERE_INDEX;
     const timer = setTimeout(() => {
-      setShowHalfway(false);
-      goTo(HALFWAY_INDEX);
+      setInterstitial(null);
+      goTo(targetIndex);
     }, 2000);
     return () => clearTimeout(timer);
-  }, [showHalfway, goTo]);
+  }, [interstitial, goTo]);
 
   const submitAnswers = useCallback(
     (updatedAnswers: Record<number, string>) => {
@@ -82,6 +83,19 @@ export default function SelfAssessmentQuizPage() {
     [allQuestions, setSelfAssessmentAnswers, router],
   );
 
+  const advanceTo = useCallback(
+    (nextIndex: number) => {
+      if (nextIndex === HALFWAY_INDEX) {
+        setInterstitial("halfway");
+      } else if (nextIndex === ALMOST_THERE_INDEX) {
+        setInterstitial("almostThere");
+      } else {
+        goTo(nextIndex);
+      }
+    },
+    [goTo],
+  );
+
   const handleSelect = useCallback(
     (choice: string) => {
       const isNewAnswer = answers[currentIndex] === undefined;
@@ -91,19 +105,14 @@ export default function SelfAssessmentQuizPage() {
       if (isNewAnswer) {
         setTimeout(() => {
           if (!isLast) {
-            const nextIndex = currentIndex + 1;
-            if (nextIndex === HALFWAY_INDEX) {
-              setShowHalfway(true);
-            } else {
-              goTo(nextIndex);
-            }
+            advanceTo(currentIndex + 1);
           } else {
             submitAnswers({ ...answers, [currentIndex]: choice });
           }
         }, 400);
       }
     },
-    [answers, currentIndex, isLast, goTo, submitAnswers],
+    [answers, currentIndex, isLast, advanceTo, submitAnswers],
   );
 
   const handleBack = useCallback(() => {
@@ -119,21 +128,16 @@ export default function SelfAssessmentQuizPage() {
     if (isLast) {
       submitAnswers(answers);
     } else {
-      const nextIndex = currentIndex + 1;
-      if (nextIndex === HALFWAY_INDEX) {
-        setShowHalfway(true);
-      } else {
-        goTo(nextIndex);
-      }
+      advanceTo(currentIndex + 1);
     }
-  }, [hasAnswered, isLast, currentIndex, answers, submitAnswers, goTo]);
+  }, [hasAnswered, isLast, currentIndex, answers, submitAnswers, advanceTo]);
 
-  // ─── Halfway interstitial ─────────────────────────────────────────────
-  if (showHalfway) {
+  // ─── Interstitial screens ─────────────────────────────────────────────
+  if (interstitial) {
     return (
       <div className="animate-page flex min-h-dvh flex-col items-center justify-center px-6">
         <h1 className="text-3xl sm:text-4xl font-bold text-dark-brown text-center leading-snug">
-          {t("quiz.halfway")}
+          {t(`quiz.${interstitial}`)}
         </h1>
       </div>
     );

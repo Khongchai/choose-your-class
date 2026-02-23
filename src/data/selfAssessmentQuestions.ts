@@ -120,6 +120,33 @@ const questions: SelfAssessmentQuestion[] = [
     leftValue: "AE",
     rightValue: "RO",
   },
+  {
+    id: 12,
+    axis: "X",
+    questionKey: "quiz.q12.question",
+    leftKey: "quiz.q12.ae",
+    rightKey: "quiz.q12.ro",
+    leftValue: "AE",
+    rightValue: "RO",
+  },
+  {
+    id: 13,
+    axis: "X",
+    questionKey: "quiz.q13.question",
+    leftKey: "quiz.q13.ae",
+    rightKey: "quiz.q13.ro",
+    leftValue: "AE",
+    rightValue: "RO",
+  },
+  {
+    id: 14,
+    axis: "X",
+    questionKey: "quiz.q14.question",
+    leftKey: "quiz.q14.ae",
+    rightKey: "quiz.q14.ro",
+    leftValue: "AE",
+    rightValue: "RO",
+  },
 ];
 
 export default questions;
