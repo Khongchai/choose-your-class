@@ -1,10 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { useGame } from "@/context/GameContext";
 
 export default function ConsentPage() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { setConsentGiven } = useGame();
 
   const handleAgree = () => {
@@ -21,51 +23,42 @@ export default function ConsentPage() {
       <div className="w-full max-w-md sm:max-w-xl flex flex-col items-center gap-8 sm:gap-10">
         {/* Header */}
         <h1 className="text-2xl sm:text-3xl font-bold text-dark-brown text-center">
-          Informed Consent Statement
+          {t("consent.title")}
         </h1>
 
         {/* Consent Body */}
         <div className="w-full bg-cream/80 rounded-lg p-6 sm:p-10 text-dark-brown text-sm sm:text-base leading-relaxed space-y-5 max-h-[55dvh] overflow-y-auto">
+          <p>{t("consent.intro")}</p>
           <p>
-            This quiz is conducted as part of a doctoral course pilot project.
-          </p>
-          <p>
-            <strong>Study Title:</strong> [Insert Title of Your Game/Quiz]
+            <strong>Study Title:</strong> {t("consent.studyTitle")}
             <br />
-            <strong>Researcher:</strong> Chanita Pongtanalert, PhD., Music
-            Education, Division of Music Education, Department of Art, Music,
-            and Dance Education, Faculty of Education, Chulalongkorn University
+            <strong>
+              {t("consent.researcher").startsWith("Chanita")
+                ? "Researcher: "
+                : "ผู้วิจัย: "}
+            </strong>
+            {t("consent.researcher")}
           </p>
+          <p className="whitespace-pre-line">{t("consent.reviewPrompt")}</p>
+
           <p>
-            Before we begin, please review how your information will be handled:
+            <strong>{t("consent.voluntaryTitle")}</strong>{" "}
+            {t("consent.voluntaryBody")}
           </p>
 
           <p>
-            <strong>Voluntary Participation &amp; Right to Withdraw:</strong>{" "}
-            Your participation is entirely voluntary. You reserve the right to
-            change your mind, withdraw your consent, and stop playing at any
-            point during the quiz without any penalty.
+            <strong>{t("consent.dataTitle")}</strong> {t("consent.dataBody")}
           </p>
 
-          <p>
-            <strong>Data Confidentiality &amp; Retention:</strong> The
-            researcher adheres to strict data protection protocols. All gameplay
-            data collected will be used anonymously for academic research, kept
-            strictly confidential, and securely destroyed upon the completion of
-            this project. If the researcher wish to utilize this dataset for
-            future studies, separate notification and additional consent will be
-            sought.
-          </p>
-
-          <p>
-            <strong>Contact Information:</strong> If you have any questions about
-            this study or your data, please contact the researcher at [Your
-            University Email Address].
-          </p>
+          {t("consent.contactBody") && (
+            <p>
+              <strong>{t("consent.contactTitle")}</strong>{" "}
+              {t("consent.contactBody")}
+            </p>
+          )}
 
           <p className="text-dark-brown/50 text-xs sm:text-sm pt-2">
-            By tapping &quot;I AGREE&quot;, you confirm that you have read the
-            information above and voluntarily consent to participate.
+            {t("consent.agreement")}
           </p>
         </div>
 
@@ -75,13 +68,13 @@ export default function ConsentPage() {
             onClick={handleAgree}
             className="px-8 sm:px-12 py-3.5 sm:py-4 rounded-lg text-base sm:text-lg font-semibold tracking-wide transition-colors duration-200 cursor-pointer bg-dark-brown text-peach hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
           >
-            I AGREE - LET&apos;S PLAY
+            {t("consent.agree")}
           </button>
           <button
             onClick={handleDecline}
             className="px-8 sm:px-12 py-3.5 sm:py-4 rounded-lg text-base sm:text-lg font-semibold tracking-wide transition-colors duration-200 cursor-pointer bg-dark-brown text-peach hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
           >
-            NO THANKS
+            {t("consent.decline")}
           </button>
         </div>
       </div>

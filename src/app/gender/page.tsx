@@ -2,21 +2,23 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { useGame } from "@/context/GameContext";
 
 type Gender = "male" | "female" | "non-binary" | "prefer-not-to-say";
 
-const genderOptions: { id: Gender; label: string }[] = [
-  { id: "male", label: "Male" },
-  { id: "female", label: "Female" },
-  { id: "non-binary", label: "Non-binary" },
-  { id: "prefer-not-to-say", label: "Prefer not to say" },
+const genderKeys: { id: Gender; key: string }[] = [
+  { id: "male", key: "gender.male" },
+  { id: "female", key: "gender.female" },
+  { id: "non-binary", key: "gender.nonBinary" },
+  { id: "prefer-not-to-say", key: "gender.preferNotToSay" },
 ];
 
 export default function GenderPage() {
   const [selected, setSelected] = useState<Gender | null>(null);
   const router = useRouter();
   const { setGender } = useGame();
+  const { t } = useTranslation();
 
   const handleSelect = (gender: Gender) => {
     setSelected(gender);
@@ -31,23 +33,22 @@ export default function GenderPage() {
       <div className="w-full max-w-sm sm:max-w-md flex flex-col items-center gap-8 sm:gap-10">
         {/* Info text */}
         <p className="text-dark-brown/60 text-sm sm:text-base text-center leading-relaxed">
-          To balance the game and help our research, please provide your real
-          information below. This information remains completely anonymous.
+          {t("shared.infoText")}
         </p>
 
         {/* Title */}
         <div className="text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-dark-brown">
-            Gender
+            {t("gender.title")}
           </h1>
           <p className="mt-2 text-dark-brown/70 text-base sm:text-lg">
-            Select Gender:
+            {t("gender.selectGender")}
           </p>
         </div>
 
         {/* Options */}
         <div className="grid grid-cols-2 gap-4 w-full">
-          {genderOptions.map((opt) => (
+          {genderKeys.map((opt) => (
             <button
               key={opt.id}
               onClick={() => handleSelect(opt.id)}
@@ -57,7 +58,7 @@ export default function GenderPage() {
                   : "bg-cream/80 text-dark-brown hover:bg-cream"
               }`}
             >
-              {opt.label}
+              {t(opt.key)}
             </button>
           ))}
         </div>

@@ -1,5 +1,55 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "IBMPlexThaiLooped";
+  src: url("/fonts/IBMPlexSansThaiLooped-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-display: swap;
+  unicode-range: U+0E00-0E7F;
+}
+@font-face {
+  font-family: "IBMPlexThaiLooped";
+  src: url("/fonts/IBMPlexSansThaiLooped-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-display: swap;
+  unicode-range: U+0E00-0E7F;
+}
+@font-face {
+  font-family: "IBMPlexThaiLooped";
+  src: url("/fonts/IBMPlexSansThaiLooped-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-display: swap;
+  unicode-range: U+0E00-0E7F;
+}
+@font-face {
+  font-family: "IBMPlexThaiLooped";
+  src: url("/fonts/IBMPlexSansThaiLooped-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0E00-0E7F;
+}
+@font-face {
+  font-family: "IBMPlexThaiLooped";
+  src: url("/fonts/IBMPlexSansThaiLooped-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+  unicode-range: U+0E00-0E7F;
+}
+@font-face {
+  font-family: "IBMPlexThaiLooped";
+  src: url("/fonts/IBMPlexSansThaiLooped-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+  unicode-range: U+0E00-0E7F;
+}
+@font-face {
+  font-family: "IBMPlexThaiLooped";
+  src: url("/fonts/IBMPlexSansThaiLooped-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0E00-0E7F;
+}
+
 :root {
   --peach: #e9ddd7;
   --cream: #EDD4BE;
@@ -21,7 +71,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-selawik), Arial, Helvetica, sans-serif;
+  font-family: "IBMPlexThaiLooped", var(--font-selawik), Arial, Helvetica, sans-serif;
   min-height: 100dvh;
 }
 

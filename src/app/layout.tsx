@@ -15,6 +15,7 @@ const selawik = localFont({
   variable: "--font-selawik",
 });
 
+
 export const metadata: Metadata = {
   title: "Choose Your Class - Music Learning Quest",
   description:

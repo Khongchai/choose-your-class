@@ -3,6 +3,7 @@
 import { useGame } from "@/context/GameContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 // Only Thai and English letters, spaces allowed
 const NAME_REGEX = /^[a-zA-Zก-๙\s]+$/;
@@ -12,6 +13,7 @@ export default function ProfilePage() {
   const [error, setError] = useState("");
   const router = useRouter();
   const { setNickname } = useGame();
+  const { t } = useTranslation();
 
   const handleChange = (value: string) => {
     setName(value);
@@ -21,11 +23,11 @@ export default function ProfilePage() {
   const handleSubmit = () => {
     const trimmed = name.trim();
     if (!trimmed) {
-      setError("Please enter a name");
+      setError(t("profile.errorEmpty"));
       return;
     }
     if (!NAME_REGEX.test(trimmed)) {
-      setError("Letters only (Thai or English) — no numbers or symbols");
+      setError(t("profile.errorInvalid"));
       return;
     }
     setNickname(trimmed);
@@ -42,23 +44,23 @@ export default function ProfilePage() {
         {/* Title */}
         <div className="text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-dark-brown">
-            Create a Player Profile
+            {t("profile.title")}
           </h1>
           <p className="mt-3 text-dark-brown/60 text-sm sm:text-base">
-            Feel free to use a nickname or alias — no real names required
+            {t("profile.subtitle")}
           </p>
         </div>
 
         {/* Input Card */}
         <div className="w-full bg-cream/80 rounded-lg p-6 sm:p-10 flex flex-col items-center gap-6">
           <label className="text-dark-brown font-semibold text-lg sm:text-xl">
-            Enter Your Name
+            {t("profile.inputLabel")}
           </label>
           <input
             type="text"
             value={name}
             onChange={(e) => handleChange(e.target.value)}
-            placeholder="Enter your name"
+            placeholder={t("profile.placeholder")}
             className="w-full rounded-lg border-2 border-dark-brown/20 bg-white px-4 py-3 text-dark-brown text-base placeholder:text-dark-brown/30 focus:border-dark-brown/50 focus:outline-none transition-colors"
           />
           {error && <p className="text-red-700 text-sm -mt-3">{error}</p>}
@@ -69,13 +71,13 @@ export default function ProfilePage() {
               onClick={handleSubmit}
               className="flex-1 py-3.5 rounded-lg text-base font-semibold tracking-wide transition-colors duration-200 cursor-pointer bg-dark-brown text-peach hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
             >
-              Confirm
+              {t("profile.confirm")}
             </button>
             <button
               onClick={handleCancel}
               className="flex-1 py-3.5 rounded-lg text-base font-semibold tracking-wide transition-colors duration-200 cursor-pointer bg-dark-brown text-peach hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
             >
-              Cancel
+              {t("profile.cancel")}
             </button>
           </div>
         </div>
