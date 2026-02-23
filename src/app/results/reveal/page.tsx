@@ -2,7 +2,8 @@
 "use client";
 
 import { useGame } from "@/context/GameContext";
-import { useCallback, useMemo } from "react";
+import { toPng } from "html-to-image";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   PolarAngleAxis,
   PolarGrid,
@@ -10,6 +11,9 @@ import {
   RadarChart,
   ResponsiveContainer,
 } from "recharts";
+
+const INTRINSIC_WIDTH = 1080;
+const INTRINSIC_HEIGHT = 1440;
 
 type CharacterClass = "warrior" | "druid" | "alchemist" | "mage";
 
@@ -53,6 +57,9 @@ function computeStats(answers: { questionId: number; choice: string }[]) {
 
 export default function RevealPage() {
   const { state } = useGame();
+  const imgRef = useRef<HTMLImageElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
 
   const characterClass = useMemo(
     () => computeCharacterClass(state.selfAssessmentAnswers),
@@ -66,22 +73,52 @@ export default function RevealPage() {
 
   const imageSrc = resultImages[characterClass];
 
+  // Track rendered image width to compute scale factor
+  useEffect(() => {
+    const img = imgRef.current;
+    if (!img) return;
+
+    const updateScale = () => {
+      setScale(img.clientWidth / INTRINSIC_WIDTH);
+    };
+
+    if (img.complete) updateScale();
+    img.addEventListener("load", updateScale);
+
+    const ro = new ResizeObserver(updateScale);
+    ro.observe(img);
+
+    return () => {
+      img.removeEventListener("load", updateScale);
+      ro.disconnect();
+    };
+  }, []);
+
   const handleSave = useCallback(async () => {
-    const res = await fetch(imageSrc);
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
+    if (!wrapperRef.current) return;
+
+    const dataUrl = await toPng(wrapperRef.current, {
+      canvasWidth: INTRINSIC_WIDTH,
+      canvasHeight: INTRINSIC_HEIGHT,
+      pixelRatio: 1,
+    });
+
     const a = document.createElement("a");
-    a.href = url;
+    a.href = dataUrl;
     a.download = `result-${characterClass}.png`;
     a.click();
-    URL.revokeObjectURL(url);
-  }, [imageSrc, characterClass]);
+  }, [characterClass]);
 
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center">
       {/* Image + chart overlay wrapper */}
-      <div className="relative w-full">
-        <img src={imageSrc} alt="Your result" className="w-full h-auto" />
+      <div ref={wrapperRef} className="relative w-full">
+        <img
+          ref={imgRef}
+          src={imageSrc}
+          alt="Your result"
+          className="w-full h-auto"
+        />
 
         {/* Radar chart overlay — positioned over "Character Stats" box */}
         <div
@@ -98,14 +135,18 @@ export default function RevealPage() {
               <PolarGrid stroke="#29191A" strokeOpacity={0.15} />
               <PolarAngleAxis
                 dataKey="label"
-                tick={{ fontSize: 20, fill: "#29191A" }}
+                tick={{ fontSize: 20 * scale, fill: "#29191A" }}
               />
               <Radar
                 dataKey="value"
                 stroke="#29191A"
                 fill="#29191A"
                 fillOpacity={0.25}
-                dot={{ r: 2, fillOpacity: 1, fill: "#29191A" }}
+                dot={{
+                  r: 2 * scale,
+                  fillOpacity: 1,
+                  fill: "#29191A",
+                }}
               />
             </RadarChart>
           </ResponsiveContainer>

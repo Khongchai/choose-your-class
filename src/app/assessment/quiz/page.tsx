@@ -153,10 +153,15 @@ export default function SelfAssessmentQuizPage() {
         key={animKey}
         className="animate-crossfade flex flex-col items-center justify-center flex-1 gap-8 sm:gap-12 max-w-lg mx-auto w-full"
       >
-        {/* Progress */}
-        <p className="text-dark-brown/40 text-sm font-semibold tracking-wide">
-          {currentIndex + 1} / {allQuestions.length}
-        </p>
+        {/* Progress bar */}
+        <div className="w-full h-1.5 rounded-full bg-dark-brown/10">
+          <div
+            className="h-full rounded-full bg-dark-brown/40 transition-all duration-300"
+            style={{
+              width: `${((currentIndex + 1) / allQuestions.length) * 100}%`,
+            }}
+          />
+        </div>
 
         {/* Question text */}
         <p className="text-dark-brown text-center text-lg sm:text-xl leading-relaxed font-medium">
