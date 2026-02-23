@@ -22,7 +22,7 @@ function shuffle<T>(arr: T[]): T[] {
 
 export default function SelfAssessmentQuizPage() {
   const router = useRouter();
-  const { setSelfAssessmentAnswers } = useGame();
+  const { state, setSelfAssessmentAnswers } = useGame();
   const { t } = useTranslation();
 
   // Split into Y-axis and X-axis groups, shuffle within each group
@@ -81,9 +81,37 @@ export default function SelfAssessmentQuizPage() {
         choice: updatedAnswers[i]!,
       }));
       setSelfAssessmentAnswers(allAnswers);
+
+      // Compute character class
+      const ce = allAnswers.filter((a) => a.choice === "CE").length;
+      const ac = allAnswers.filter((a) => a.choice === "AC").length;
+      const ae = allAnswers.filter((a) => a.choice === "AE").length;
+      const ro = allAnswers.filter((a) => a.choice === "RO").length;
+      const yWinner = ce >= ac ? "CE" : "AC";
+      const xWinner = ae >= ro ? "AE" : "RO";
+      const characterClass =
+        yWinner === "CE" && xWinner === "AE"
+          ? "warrior"
+          : yWinner === "CE" && xWinner === "RO"
+            ? "druid"
+            : yWinner === "AC" && xWinner === "AE"
+              ? "alchemist"
+              : "mage";
+
+      // Persist to MongoDB (fire-and-forget)
+      fetch("/api/results", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...state,
+          selfAssessmentAnswers: allAnswers,
+          characterClass,
+        }),
+      }).catch(() => {});
+
       router.push("/results");
     },
-    [allQuestions, setSelfAssessmentAnswers, router],
+    [allQuestions, setSelfAssessmentAnswers, state, router],
   );
 
   const advanceTo = useCallback(
@@ -117,23 +145,6 @@ export default function SelfAssessmentQuizPage() {
     },
     [answers, currentIndex, isLast, advanceTo, submitAnswers],
   );
-
-  const handleBack = useCallback(() => {
-    if (isFirst) {
-      router.push("/assessment");
-    } else {
-      goTo(currentIndex - 1);
-    }
-  }, [isFirst, currentIndex, goTo, router]);
-
-  const handleForward = useCallback(() => {
-    if (!hasAnswered) return;
-    if (isLast) {
-      submitAnswers(answers);
-    } else {
-      advanceTo(currentIndex + 1);
-    }
-  }, [hasAnswered, isLast, currentIndex, answers, submitAnswers, advanceTo]);
 
   // ─── Interstitial screens ─────────────────────────────────────────────
   if (interstitial) {
