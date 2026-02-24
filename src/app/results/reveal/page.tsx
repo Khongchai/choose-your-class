@@ -17,11 +17,18 @@ const INTRINSIC_HEIGHT = 1440;
 
 type CharacterClass = "warrior" | "druid" | "alchemist" | "mage";
 
-const resultImages: Record<CharacterClass, string> = {
+const resultImagesEng: Record<CharacterClass, string> = {
   warrior: "/results/Warrior_ENG.png",
   druid: "/results/Divevrger_ENG.png",
   alchemist: "/results/Alchemist_ENG.png",
   mage: "/results/Mage_ENG.png",
+};
+
+const resultImagesTh: Record<CharacterClass, string> = {
+  warrior: "/results/Warrior_TH.png",
+  druid: "/results/Divevrger_TH.png",
+  alchemist: "/results/Alchemist_TH.png",
+  mage: "/results/Mage_TH.png",
 };
 
 function computeCharacterClass(
@@ -49,9 +56,9 @@ function computeStats(answers: { questionId: number; choice: string }[]) {
 
   return [
     { label: "CE", value: ce },
-    { label: "AE", value: ae },
-    { label: "AC", value: ac },
     { label: "RO", value: ro },
+    { label: "AC", value: ac },
+    { label: "AE", value: ae },
   ];
 }
 
@@ -71,6 +78,7 @@ export default function RevealPage() {
     [state.selfAssessmentAnswers],
   );
 
+  const resultImages = state.language === "th" ? resultImagesTh : resultImagesEng;
   const imageSrc = resultImages[characterClass];
 
   // Track rendered image width to compute scale factor

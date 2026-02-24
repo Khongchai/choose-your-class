@@ -64,7 +64,6 @@ export const resources = {
         advanced: "Advanced (Grades 6–8)",
         professional: "Professional (Entry)",
         expert: "Expert",
-        master: "Master",
       },
       consent: {
         title: "Informed Consent Statement",
@@ -245,12 +244,11 @@ export const resources = {
         title: "ภารกิจปัจจุบัน",
         subtitle: "(ระดับทักษะการเล่นดนตรี)",
         label: "บทประพันธ์ที่คุณซ้อมหรือแสดงครั้งล่าสุดอยู่ในระดับใด",
-        novice: "ไม่มีพื้นฐานมาก่อน",
-        intermediate: "ระดับต้น",
-        advanced: "ระดับกลาง",
+        novice: "ไม่มีพื้นฐานมาก่อน (เกรด 1-3)",
+        intermediate: "ระดับต้น (เกรด 4-5)",
+        advanced: "ระดับกลาง (เกรด 6-8)",
         professional: "ระดับสูง",
         expert: "ระดับเชี่ยวชาญ",
-        master: "ตัด",
       },
       consent: {
         title: "เอกสารแสดงความยินยอม",
@@ -345,8 +343,7 @@ export const resources = {
           ro: "ดูเครื่องหมายกำหนดจังหวะ แล้วลองแบ่งย่อยจังหวะในใจ",
         },
         q12: {
-          question:
-            "คุณจดบันทึกเวลาอาจารย์กำลังสอนเครื่องมือเอกของคุณหรือไม่",
+          question: "คุณจดบันทึกเวลาอาจารย์กำลังสอนเครื่องมือเอกของคุณหรือไม่",
           ae: "ไม่ แต่ถ้าจด จะเน้นแค่เทคนิคที่เกี่ยวข้องกับการเล่นเครื่อง",
           ro: "ใช่ จดรายละเอียดต่าง ๆ รวมไปถึงบันทึกการซ้อมของตัวเอง",
         },

@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useTranslation } from "react-i18next";
 import { useGame } from "@/context/GameContext";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 type SkillLevel =
   | "novice"
@@ -19,7 +19,6 @@ const skillKeys: { id: SkillLevel; key: string }[] = [
   { id: "advanced", key: "skillLevel.advanced" },
   { id: "professional", key: "skillLevel.professional" },
   { id: "expert", key: "skillLevel.expert" },
-  { id: "master", key: "skillLevel.master" },
 ];
 
 export default function SkillLevelPage() {
