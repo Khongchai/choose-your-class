@@ -59,11 +59,11 @@ export const resources = {
         subtitle: "(Skill Level)",
         label:
           '"What is the grade level of the repertoire you are currently practicing or performing?"',
-        novice: "Beginner",
-        intermediate: "Intermediate (Grades 1-3)",
-        advanced: "Advanced (Grades 4-5)",
-        professional: "Professional (6-8)",
-        expert: "Expert",
+        novice: "No prior experience",
+        intermediate: "Beginner (Grades 1-3)",
+        advanced: "Intermediate (Grades 4-5)",
+        professional: "Advanced (Grade 6-8)",
+        expert: "Proficient (Post-grade 8)",
       },
       consent: {
         title: "Informed Consent Statement",
@@ -248,8 +248,8 @@ export const resources = {
         novice: "ไม่มีพื้นฐานมาก่อน",
         intermediate: "ระดับต้น (เกรด 1-3)",
         advanced: "ระดับกลาง (เกรด 4-5)",
-        professional: "ระดับสูง (6-8)",
-        expert: "ระดับเชี่ยวชาญ",
+        professional: "ระดับสูง (เกรด 6-8)",
+        expert: "ระดับเชี่ยวชาญ (มากกว่าเกรด 8)",
       },
       consent: {
         title: "เอกสารแสดงความยินยอม",
