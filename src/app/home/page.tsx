@@ -58,7 +58,7 @@ export default function ChooseClass() {
         <FlickerImage
           src={chooseYourClassText}
           alt="Choose Your Class"
-          className="pointer-events-none select-none w-70 sm:w-100"
+          className="pointer-events-none select-none w-70 sm:w-90"
           width={320}
           height={160}
           priority
