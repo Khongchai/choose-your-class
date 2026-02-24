@@ -78,7 +78,8 @@ export default function RevealPage() {
     [state.selfAssessmentAnswers],
   );
 
-  const resultImages = state.language === "th" ? resultImagesTh : resultImagesEng;
+  const resultImages =
+    state.language === "th" ? resultImagesTh : resultImagesEng;
   const imageSrc = resultImages[characterClass];
 
   // Track rendered image width to compute scale factor
@@ -120,7 +121,7 @@ export default function RevealPage() {
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center">
       {/* Image + chart overlay wrapper */}
-      <div ref={wrapperRef} className="relative w-full">
+      <div ref={wrapperRef} className="relative w-full px-2 max-w-150">
         <img
           ref={imgRef}
           src={imageSrc}
