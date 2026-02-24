@@ -69,7 +69,8 @@ export const resources = {
         title: "Informed Consent Statement",
         intro:
           "This quiz is conducted as part of a doctoral course pilot project.",
-        studyTitle: "Choose Your Class",
+        studyTitle:
+          "การสำรวจรูปแบบการเรียนรู้ตามทฤษฎีกระบวนการเรียนรู้เชิงประสบการณ์ของเดวิด โคล์บ ผ่านนิทรรศการฐานกิจกรรมเกม: กรณีศึกษางานประชุมวิชาการดนตรีศึกษานานาชาติ พ.ศ. 2569 จุฬาลงกรณ์มหาวิทยาลัย",
         researcher:
           "Chanita Pongtanalert, PhD., Music Education, Division of Music Education, Department of Art, Music, and Dance Education, Faculty of Education, Chulalongkorn University",
         reviewPrompt:
@@ -254,7 +255,8 @@ export const resources = {
         title: "เอกสารแสดงความยินยอม",
         intro:
           "แบบสอบถามนี้เป็นส่วนหนึ่งของการศึกษานำร่องในรายวิชาระดับปริญญาเอก",
-        studyTitle: "Choose Your Class",
+        studyTitle:
+          "การสำรวจรูปแบบการเรียนรู้ตามทฤษฎีกระบวนการเรียนรู้เชิงประสบการณ์ของเดวิด โคล์บ ผ่านนิทรรศการฐานกิจกรรมเกม: กรณีศึกษางานประชุมวิชาการดนตรีศึกษานานาชาติ พ.ศ. 2569 จุฬาลงกรณ์มหาวิทยาลัย",
         researcher:
           "ชณิตา พงษ์ธนเลิศ นิสิตระดับปริญญาเอก สาขาดนตรีศึกษา ภาควิชาศิลปะ ดนตรีและนาฏศิลป์ศึกษา คณะครุศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
         reviewPrompt:
