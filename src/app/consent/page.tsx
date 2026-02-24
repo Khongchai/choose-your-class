@@ -1,8 +1,8 @@
 "use client";
 
+import { useGame } from "@/context/GameContext";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import { useGame } from "@/context/GameContext";
 
 export default function ConsentPage() {
   const router = useRouter();
@@ -63,16 +63,16 @@ export default function ConsentPage() {
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-4 sm:gap-5">
+        <div className="flex gap-3 sm:gap-4">
           <button
             onClick={handleAgree}
-            className="px-8 sm:px-12 py-3.5 sm:py-4 rounded-lg text-base sm:text-lg font-semibold tracking-wide transition-colors duration-200 cursor-pointer bg-dark-brown text-peach hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
+            className="px-5 sm:px-8 py-2 sm:py-2.5 rounded-lg text-sm sm:text-base font-semibold tracking-wide transition-colors duration-200 cursor-pointer bg-dark-brown text-peach hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
           >
             {t("consent.agree")}
           </button>
           <button
             onClick={handleDecline}
-            className="px-8 sm:px-12 py-3.5 sm:py-4 rounded-lg text-base sm:text-lg font-semibold tracking-wide transition-colors duration-200 cursor-pointer bg-dark-brown text-peach hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
+            className="px-5 sm:px-8 py-2 sm:py-2.5 rounded-lg text-sm sm:text-base font-semibold tracking-wide transition-colors duration-200 cursor-pointer bg-dark-brown text-peach hover:bg-dark-brown/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark-brown"
           >
             {t("consent.decline")}
           </button>
