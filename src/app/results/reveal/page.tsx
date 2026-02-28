@@ -3,14 +3,7 @@
 
 import { useGame } from "@/context/GameContext";
 import { toPng } from "html-to-image";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  PolarAngleAxis,
-  PolarGrid,
-  Radar,
-  RadarChart,
-  ResponsiveContainer,
-} from "recharts";
+import { useCallback, useMemo, useRef } from "react";
 
 const INTRINSIC_WIDTH = 1080;
 const INTRINSIC_HEIGHT = 1440;
@@ -53,27 +46,153 @@ function computeStats(answers: { questionId: number; choice: string }[]) {
   const ac = answers.filter((a) => a.choice === "AC").length;
   const ae = answers.filter((a) => a.choice === "AE").length;
   const ro = answers.filter((a) => a.choice === "RO").length;
+  return { ce, ac, ae, ro };
+}
 
-  return [
-    { label: "CE", value: ce },
-    { label: "RO", value: ro },
-    { label: "AC", value: ac },
-    { label: "AE", value: ae },
-  ];
+function XYChart({
+  ce,
+  ac,
+  ae,
+  ro,
+}: {
+  ce: number;
+  ac: number;
+  ae: number;
+  ro: number;
+}) {
+  const RANGE = 7;
+  const AXIS_LEN = 100;
+  const unit = AXIS_LEN / RANGE;
+  const TICK = 3;
+
+  // Dot: x = AE - RO, y = CE - AC (SVG y is inverted)
+  const dotX = (ae - ro) * unit;
+  const dotY = -(ce - ac) * unit;
+
+  // Radar-style polygon vertices: CE=up, AE=right, AC=down, RO=left
+  const poly = [
+    `0,${-ce * unit}`,
+    `${ae * unit},0`,
+    `0,${ac * unit}`,
+    `${-ro * unit},0`,
+  ].join(" ");
+
+  const ticks: React.ReactNode[] = [];
+  for (let i = -RANGE; i <= RANGE; i++) {
+    if (i === 0) continue;
+    const p = i * unit;
+    ticks.push(
+      <line
+        key={`xt${i}`}
+        x1={p}
+        y1={-TICK}
+        x2={p}
+        y2={TICK}
+        stroke="#29191A"
+        strokeWidth={1.5}
+      />,
+      <line
+        key={`yt${i}`}
+        x1={-TICK}
+        y1={p}
+        x2={TICK}
+        y2={p}
+        stroke="#29191A"
+        strokeWidth={1.5}
+      />,
+    );
+  }
+
+  return (
+    <svg
+      viewBox="-130 -130 260 260"
+      preserveAspectRatio="xMidYMid meet"
+      width="100%"
+      height="100%"
+    >
+      {/* Radar polygon fill at 30% opacity */}
+      <polygon points={poly} fill="#29191A" fillOpacity={0.3} />
+
+      {/* Axes */}
+      <line
+        x1={-AXIS_LEN}
+        y1={0}
+        x2={AXIS_LEN}
+        y2={0}
+        stroke="#29191A"
+        strokeWidth={2}
+      />
+      <line
+        x1={0}
+        y1={-AXIS_LEN}
+        x2={0}
+        y2={AXIS_LEN}
+        stroke="#29191A"
+        strokeWidth={2}
+      />
+
+      {/* Tick marks */}
+      {ticks}
+
+      {/* Axis end labels */}
+      <text
+        x={-AXIS_LEN - 10}
+        y={5}
+        textAnchor="middle"
+        fontSize={14}
+        fontWeight={700}
+        fill="#29191A"
+      >
+        -7
+      </text>
+      <text
+        x={AXIS_LEN + 10}
+        y={5}
+        textAnchor="middle"
+        fontSize={14}
+        fontWeight={700}
+        fill="#29191A"
+      >
+        7
+      </text>
+      <text
+        x={0}
+        y={-AXIS_LEN - 10}
+        textAnchor="middle"
+        fontSize={14}
+        fontWeight={700}
+        fill="#29191A"
+      >
+        7
+      </text>
+      <text
+        x={0}
+        y={AXIS_LEN + 18}
+        textAnchor="middle"
+        fontSize={14}
+        fontWeight={700}
+        fill="#29191A"
+      >
+        -7
+      </text>
+
+      {/* Data dot */}
+      <circle cx={dotX} cy={dotY} r={5} fill="#29191A" />
+    </svg>
+  );
 }
 
 export default function RevealPage() {
   const { state } = useGame();
   const imgRef = useRef<HTMLImageElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
 
   const characterClass = useMemo(
     () => computeCharacterClass(state.selfAssessmentAnswers),
     [state.selfAssessmentAnswers],
   );
 
-  const chartData = useMemo(
+  const stats = useMemo(
     () => computeStats(state.selfAssessmentAnswers),
     [state.selfAssessmentAnswers],
   );
@@ -81,27 +200,6 @@ export default function RevealPage() {
   const resultImages =
     state.language === "th" ? resultImagesTh : resultImagesEng;
   const imageSrc = resultImages[characterClass];
-
-  // Track rendered image width to compute scale factor
-  useEffect(() => {
-    const img = imgRef.current;
-    if (!img) return;
-
-    const updateScale = () => {
-      setScale(img.clientWidth / INTRINSIC_WIDTH);
-    };
-
-    if (img.complete) updateScale();
-    img.addEventListener("load", updateScale);
-
-    const ro = new ResizeObserver(updateScale);
-    ro.observe(img);
-
-    return () => {
-      img.removeEventListener("load", updateScale);
-      ro.disconnect();
-    };
-  }, []);
 
   const handleSave = useCallback(async () => {
     if (!wrapperRef.current) return;
@@ -129,7 +227,7 @@ export default function RevealPage() {
           className="w-full h-auto"
         />
 
-        {/* Radar chart overlay — positioned over "Character Stats" box */}
+        {/* X-Y chart overlay — positioned over "Character Stats" box */}
         <div
           className="absolute"
           style={{
@@ -139,26 +237,7 @@ export default function RevealPage() {
             height: "17.78%",
           }}
         >
-          <ResponsiveContainer width="100%" height="100%">
-            <RadarChart cx="50%" cy="50%" outerRadius="65%" data={chartData}>
-              <PolarGrid stroke="#29191A" strokeOpacity={0.15} />
-              <PolarAngleAxis
-                dataKey="label"
-                tick={{ fontSize: 20 * scale, fill: "#29191A" }}
-              />
-              <Radar
-                dataKey="value"
-                stroke="#29191A"
-                fill="#29191A"
-                fillOpacity={0.25}
-                dot={{
-                  r: 2 * scale,
-                  fillOpacity: 1,
-                  fill: "#29191A",
-                }}
-              />
-            </RadarChart>
-          </ResponsiveContainer>
+          <XYChart ce={stats.ce} ac={stats.ac} ae={stats.ae} ro={stats.ro} />
         </div>
       </div>
 
