@@ -134,47 +134,18 @@ function XYChart({
       {/* Tick marks */}
       {ticks}
 
-      {/* Axis end labels */}
-      <text
-        x={-AXIS_LEN - 10}
-        y={5}
-        textAnchor="middle"
-        fontSize={14}
-        fontWeight={700}
-        fill="#29191A"
-      >
-        -7
-      </text>
-      <text
-        x={AXIS_LEN + 10}
-        y={5}
-        textAnchor="middle"
-        fontSize={14}
-        fontWeight={700}
-        fill="#29191A"
-      >
-        7
-      </text>
-      <text
-        x={0}
-        y={-AXIS_LEN - 10}
-        textAnchor="middle"
-        fontSize={14}
-        fontWeight={700}
-        fill="#29191A"
-      >
-        7
-      </text>
-      <text
-        x={0}
-        y={AXIS_LEN + 18}
-        textAnchor="middle"
-        fontSize={14}
-        fontWeight={700}
-        fill="#29191A"
-      >
-        -7
-      </text>
+      {/* Axis end labels with metric names */}
+      <text x={-AXIS_LEN - 10} y={4} textAnchor="middle" fontSize={14} fontWeight={700} fill="#29191A">-7</text>
+      <text x={-AXIS_LEN - 10} y={16} textAnchor="middle" fontSize={8} fill="#29191A" opacity={0.5}>RO</text>
+
+      <text x={AXIS_LEN + 10} y={4} textAnchor="middle" fontSize={14} fontWeight={700} fill="#29191A">7</text>
+      <text x={AXIS_LEN + 10} y={16} textAnchor="middle" fontSize={8} fill="#29191A" opacity={0.5}>AE</text>
+
+      <text x={0} y={-AXIS_LEN - 14} textAnchor="middle" fontSize={14} fontWeight={700} fill="#29191A">7</text>
+      <text x={0} y={-AXIS_LEN - 4} textAnchor="middle" fontSize={8} fill="#29191A" opacity={0.5}>CE</text>
+
+      <text x={0} y={AXIS_LEN + 16} textAnchor="middle" fontSize={14} fontWeight={700} fill="#29191A">-7</text>
+      <text x={0} y={AXIS_LEN + 26} textAnchor="middle" fontSize={8} fill="#29191A" opacity={0.5}>AC</text>
 
       {/* Data dot */}
       <circle cx={dotX} cy={dotY} r={5} fill="#29191A" />
