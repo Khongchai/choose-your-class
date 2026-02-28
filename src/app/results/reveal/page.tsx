@@ -3,7 +3,7 @@
 
 import { useGame } from "@/context/GameContext";
 import { toPng } from "html-to-image";
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 
 const INTRINSIC_WIDTH = 1080;
 const INTRINSIC_HEIGHT = 1440;
@@ -49,16 +49,27 @@ function computeStats(answers: { questionId: number; choice: string }[]) {
   return { ce, ac, ae, ro };
 }
 
+const ALL_CLASSES: CharacterClass[] = ["warrior", "druid", "alchemist", "mage"];
+
+const CLASS_LABELS: Record<CharacterClass, string> = {
+  warrior: "Warrior",
+  druid: "Druid",
+  alchemist: "Alchemist",
+  mage: "Mage",
+};
+
 function XYChart({
   ce,
   ac,
   ae,
   ro,
+  showStats,
 }: {
   ce: number;
   ac: number;
   ae: number;
   ro: number;
+  showStats: boolean;
 }) {
   const RANGE = 7;
   const AXIS_LEN = 100;
@@ -111,7 +122,7 @@ function XYChart({
       height="100%"
     >
       {/* Radar polygon fill at 30% opacity */}
-      <polygon points={poly} fill="#29191A" fillOpacity={0.3} />
+      {showStats && <polygon points={poly} fill="#29191A" fillOpacity={0.3} />}
 
       {/* Axes */}
       <line
@@ -148,7 +159,7 @@ function XYChart({
       <text x={0} y={AXIS_LEN + 26} textAnchor="middle" fontSize={8} fill="#29191A" opacity={0.5}>AC</text>
 
       {/* Data dot */}
-      <circle cx={dotX} cy={dotY} r={5} fill="#29191A" />
+      {showStats && <circle cx={dotX} cy={dotY} r={5} fill="#29191A" />}
     </svg>
   );
 }
@@ -168,9 +179,12 @@ export default function RevealPage() {
     [state.selfAssessmentAnswers],
   );
 
+  const [viewedClass, setViewedClass] = useState<CharacterClass>(characterClass);
+  const isOwnResult = viewedClass === characterClass;
+
   const resultImages =
     state.language === "th" ? resultImagesTh : resultImagesEng;
-  const imageSrc = resultImages[characterClass];
+  const imageSrc = resultImages[viewedClass];
 
   const handleSave = useCallback(async () => {
     if (!wrapperRef.current) return;
@@ -183,18 +197,36 @@ export default function RevealPage() {
 
     const a = document.createElement("a");
     a.href = dataUrl;
-    a.download = `result-${characterClass}.png`;
+    a.download = `result-${viewedClass}.png`;
     a.click();
-  }, [characterClass]);
+  }, [viewedClass]);
 
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center">
+      {/* Class navigation tabs */}
+      <div className="flex gap-2 mb-3 px-2">
+        {ALL_CLASSES.map((cls) => (
+          <button
+            key={cls}
+            onClick={() => setViewedClass(cls)}
+            className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-colors cursor-pointer ${
+              viewedClass === cls
+                ? "bg-dark-brown text-cream"
+                : "bg-cream/60 text-dark-brown hover:bg-cream/80"
+            }`}
+          >
+            {CLASS_LABELS[cls]}
+            {cls === characterClass && " *"}
+          </button>
+        ))}
+      </div>
+
       {/* Image + chart overlay wrapper */}
       <div ref={wrapperRef} className="relative w-full px-2 max-w-150">
         <img
           ref={imgRef}
           src={imageSrc}
-          alt="Your result"
+          alt={`${CLASS_LABELS[viewedClass]} result`}
           className="w-full h-auto"
         />
 
@@ -208,7 +240,13 @@ export default function RevealPage() {
             height: "17.78%",
           }}
         >
-          <XYChart ce={stats.ce} ac={stats.ac} ae={stats.ae} ro={stats.ro} />
+          <XYChart
+            ce={stats.ce}
+            ac={stats.ac}
+            ae={stats.ae}
+            ro={stats.ro}
+            showStats={isOwnResult}
+          />
         </div>
       </div>
 
