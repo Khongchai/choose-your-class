@@ -19,14 +19,14 @@ type CharacterClass = "warrior" | "druid" | "alchemist" | "mage";
 
 const resultImagesEng: Record<CharacterClass, string> = {
   warrior: "/results/Warrior_ENG.png",
-  druid: "/results/Divevrger_ENG.png",
+  druid: "/results/Druids_ENG.png",
   alchemist: "/results/Alchemist_ENG.png",
   mage: "/results/Mage_ENG.png",
 };
 
 const resultImagesTh: Record<CharacterClass, string> = {
   warrior: "/results/Warrior_TH.png",
-  druid: "/results/Divevrger_TH.png",
+  druid: "/results/Druids_TH.png",
   alchemist: "/results/Alchemist_TH.png",
   mage: "/results/Mage_TH.png",
 };
