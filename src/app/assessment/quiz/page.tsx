@@ -138,7 +138,7 @@ export default function SelfAssessmentQuizPage() {
         </div>
 
         {/* Question text */}
-        <p className="text-dark-brown text-center text-lg sm:text-xl leading-relaxed font-medium">
+        <p className="text-dark-brown text-center text-lg sm:text-xl leading-relaxed font-medium whitespace-pre-wrap">
           {t(current.questionKey)}
         </p>
 

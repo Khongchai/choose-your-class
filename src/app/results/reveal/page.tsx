@@ -76,16 +76,16 @@ function XYChart({
   const unit = AXIS_LEN / RANGE;
   const TICK = 3;
 
-  // Dot: x = AE - RO, y = CE - AC (SVG y is inverted)
-  const dotX = (ae - ro) * unit;
+  // Dot: x = RO - AE, y = CE - AC (SVG y is inverted)
+  const dotX = (ro - ae) * unit;
   const dotY = -(ce - ac) * unit;
 
-  // Radar-style polygon vertices: CE=up, AE=right, AC=down, RO=left
+  // Radar-style polygon vertices: CE=up, RO=right, AC=down, AE=left
   const poly = [
     `0,${-ce * unit}`,
-    `${ae * unit},0`,
+    `${ro * unit},0`,
     `0,${ac * unit}`,
-    `${-ro * unit},0`,
+    `${-ae * unit},0`,
   ].join(" ");
 
   const ticks: React.ReactNode[] = [];
@@ -146,17 +146,89 @@ function XYChart({
       {ticks}
 
       {/* Axis end labels with metric names */}
-      <text x={-AXIS_LEN - 10} y={4} textAnchor="middle" fontSize={14} fontWeight={700} fill="#29191A">-7</text>
-      <text x={-AXIS_LEN - 10} y={16} textAnchor="middle" fontSize={8} fill="#29191A" opacity={0.5}>RO</text>
+      <text
+        x={-AXIS_LEN - 10}
+        y={4}
+        textAnchor="middle"
+        fontSize={14}
+        fontWeight={700}
+        fill="#29191A"
+      >
+        -7
+      </text>
+      <text
+        x={-AXIS_LEN - 10}
+        y={16}
+        textAnchor="middle"
+        fontSize={8}
+        fill="#29191A"
+        opacity={0.5}
+      >
+        AE
+      </text>
 
-      <text x={AXIS_LEN + 10} y={4} textAnchor="middle" fontSize={14} fontWeight={700} fill="#29191A">7</text>
-      <text x={AXIS_LEN + 10} y={16} textAnchor="middle" fontSize={8} fill="#29191A" opacity={0.5}>AE</text>
+      <text
+        x={AXIS_LEN + 10}
+        y={4}
+        textAnchor="middle"
+        fontSize={14}
+        fontWeight={700}
+        fill="#29191A"
+      >
+        7
+      </text>
+      <text
+        x={AXIS_LEN + 10}
+        y={16}
+        textAnchor="middle"
+        fontSize={8}
+        fill="#29191A"
+        opacity={0.5}
+      >
+        RO
+      </text>
 
-      <text x={0} y={-AXIS_LEN - 14} textAnchor="middle" fontSize={14} fontWeight={700} fill="#29191A">7</text>
-      <text x={0} y={-AXIS_LEN - 4} textAnchor="middle" fontSize={8} fill="#29191A" opacity={0.5}>CE</text>
+      <text
+        x={0}
+        y={-AXIS_LEN - 14}
+        textAnchor="middle"
+        fontSize={14}
+        fontWeight={700}
+        fill="#29191A"
+      >
+        7
+      </text>
+      <text
+        x={0}
+        y={-AXIS_LEN - 4}
+        textAnchor="middle"
+        fontSize={8}
+        fill="#29191A"
+        opacity={0.5}
+      >
+        CE
+      </text>
 
-      <text x={0} y={AXIS_LEN + 16} textAnchor="middle" fontSize={14} fontWeight={700} fill="#29191A">-7</text>
-      <text x={0} y={AXIS_LEN + 26} textAnchor="middle" fontSize={8} fill="#29191A" opacity={0.5}>AC</text>
+      <text
+        x={0}
+        y={AXIS_LEN + 16}
+        textAnchor="middle"
+        fontSize={14}
+        fontWeight={700}
+        fill="#29191A"
+      >
+        -7
+      </text>
+      <text
+        x={0}
+        y={AXIS_LEN + 26}
+        textAnchor="middle"
+        fontSize={8}
+        fill="#29191A"
+        opacity={0.5}
+      >
+        AC
+      </text>
 
       {/* Data dot */}
       {showStats && <circle cx={dotX} cy={dotY} r={5} fill="#29191A" />}
@@ -179,7 +251,8 @@ export default function RevealPage() {
     [state.selfAssessmentAnswers],
   );
 
-  const [viewedClass, setViewedClass] = useState<CharacterClass>(characterClass);
+  const [viewedClass, setViewedClass] =
+    useState<CharacterClass>(characterClass);
   const isOwnResult = viewedClass === characterClass;
 
   const resultImages =
