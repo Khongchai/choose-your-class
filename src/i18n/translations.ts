@@ -93,8 +93,6 @@ export const resources = {
         title: "Let's begin the journey",
       },
       quiz: {
-        halfway: "You're halfway there!",
-        almostThere: "Almost there — just a little more!",
         back: "Back",
         next: "Next",
         finish: "Finish",
@@ -278,8 +276,6 @@ export const resources = {
         title: "ออกเดินทางกันเถอะ",
       },
       quiz: {
-        halfway: "คุณเดินทางมาถึงครึ่งทางแล้วนะ!",
-        almostThere: "ใกล้ถึงที่หมายแล้ว อีกนิดเดียว!",
         back: "ย้อนกลับ",
         next: "ถัดไป",
         finish: "เสร็จสิ้น",

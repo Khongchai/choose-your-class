@@ -5,11 +5,8 @@
 import { useGame } from "@/context/GameContext";
 import questions from "@/data/selfAssessmentQuestions";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-
-const HALFWAY_INDEX = 7; // Show interstitial after Y-axis (7 questions), before X-axis
-const ALMOST_THERE_INDEX = 12; // Show interstitial after 12th question (5th X-axis)
 
 function shuffle<T>(arr: T[]): T[] {
   const copy = [...arr];
@@ -38,9 +35,6 @@ export default function SelfAssessmentQuizPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [animKey, setAnimKey] = useState(0);
-  const [interstitial, setInterstitial] = useState<
-    "halfway" | "almostThere" | null
-  >(null);
 
   const current = allQuestions[currentIndex];
   const isFlipped = choiceFlips.current[currentIndex];
@@ -53,26 +47,12 @@ export default function SelfAssessmentQuizPage() {
     ? { value: current.leftValue, key: current.leftKey }
     : { value: current.rightValue, key: current.rightKey };
 
-  const isFirst = currentIndex === 0;
   const isLast = currentIndex === allQuestions.length - 1;
-  const hasAnswered = selected !== null;
 
   const goTo = useCallback((index: number) => {
     setCurrentIndex(index);
     setAnimKey((prev) => prev + 1);
   }, []);
-
-  // Auto-dismiss interstitial after 2 seconds
-  useEffect(() => {
-    if (!interstitial) return;
-    const targetIndex =
-      interstitial === "halfway" ? HALFWAY_INDEX : ALMOST_THERE_INDEX;
-    const timer = setTimeout(() => {
-      setInterstitial(null);
-      goTo(targetIndex);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, [interstitial, goTo]);
 
   const submitAnswers = useCallback(
     (updatedAnswers: Record<number, string>) => {
@@ -116,13 +96,7 @@ export default function SelfAssessmentQuizPage() {
 
   const advanceTo = useCallback(
     (nextIndex: number) => {
-      if (nextIndex === HALFWAY_INDEX) {
-        setInterstitial("halfway");
-      } else if (nextIndex === ALMOST_THERE_INDEX) {
-        setInterstitial("almostThere");
-      } else {
-        goTo(nextIndex);
-      }
+      goTo(nextIndex);
     },
     [goTo],
   );
@@ -145,17 +119,6 @@ export default function SelfAssessmentQuizPage() {
     },
     [answers, currentIndex, isLast, advanceTo, submitAnswers],
   );
-
-  // ─── Interstitial screens ─────────────────────────────────────────────
-  if (interstitial) {
-    return (
-      <div className="animate-page flex min-h-dvh flex-col items-center justify-center px-6">
-        <h1 className="text-3xl sm:text-4xl font-bold text-dark-brown text-center leading-snug">
-          {t(`quiz.${interstitial}`)}
-        </h1>
-      </div>
-    );
-  }
 
   // ─── Quiz question ────────────────────────────────────────────────────
   return (
