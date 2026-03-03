@@ -146,23 +146,23 @@ function XYChart({
       {ticks}
 
       <text
-        x={-AXIS_LEN - 10}
-        y={16}
+        x={-AXIS_LEN - 15}
+        y={5}
         textAnchor="middle"
-        fontSize={8}
+        fontSize={14}
+        fontWeight={700}
         fill="#29191A"
-        opacity={0.5}
       >
         AE
       </text>
 
       <text
-        x={AXIS_LEN + 10}
-        y={2}
+        x={AXIS_LEN + 15}
+        y={4}
         textAnchor="middle"
-        fontSize={8}
+        fontSize={14}
+        fontWeight={700}
         fill="#29191A"
-        opacity={0.5}
       >
         RO
       </text>
@@ -171,20 +171,20 @@ function XYChart({
         x={0}
         y={-AXIS_LEN - 4}
         textAnchor="middle"
-        fontSize={8}
+        fontSize={14}
+        fontWeight={700}
         fill="#29191A"
-        opacity={0.5}
       >
         CE
       </text>
 
       <text
         x={0}
-        y={AXIS_LEN + 26}
+        y={AXIS_LEN + 14}
         textAnchor="middle"
-        fontSize={8}
+        fontSize={14}
+        fontWeight={700}
         fill="#29191A"
-        opacity={0.5}
       >
         AC
       </text>
@@ -266,7 +266,7 @@ export default function RevealPage() {
         <div
           className="absolute"
           style={{
-            top: "55.9%",
+            top: "56.3%",
             left: "46.11%",
             width: "50.74%",
             height: "17.78%",
