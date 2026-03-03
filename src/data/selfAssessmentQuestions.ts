@@ -114,7 +114,7 @@ const questions: SelfAssessmentQuestion[] = [
     id: 11,
     axis: "X",
     questionKey: "quiz.q11.question",
-    image: "/sheet-music-snippet.webp",
+    image: "/sheet-music-snippet.png",
     leftKey: "quiz.q11.ae",
     rightKey: "quiz.q11.ro",
     leftValue: "AE",
