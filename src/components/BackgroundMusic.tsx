@@ -11,7 +11,7 @@ export default function BackgroundMusic() {
   useEffect(() => {
     const audio = new Audio("/audio/kittens.mp3");
     audio.loop = true;
-    audio.volume = 0.5;
+    audio.volume = 0.15;
     audioRef.current = audio;
 
     return () => {
