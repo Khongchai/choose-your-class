@@ -8,7 +8,7 @@ export default function HapticsProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const { trigger } = useWebHaptics();
+  const { trigger } = useWebHaptics({ debug: true });
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
