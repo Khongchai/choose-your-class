@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { GameProvider } from "@/context/GameContext";
 import I18nProvider from "@/i18n/I18nProvider";
 import HapticsProvider from "@/components/HapticsProvider";
+import BackgroundMusic from "@/components/BackgroundMusic";
 import "./globals.css";
 
 const selawik = localFont({
@@ -21,6 +22,19 @@ export const metadata: Metadata = {
   title: "Choose Your Class - Music Learning Quest",
   description:
     "Discover your favourite ways to learn through a musical quest",
+  openGraph: {
+    title: "Choose Your Class - Music Learning Quest",
+    description:
+      "Discover your favourite ways to learn through a musical quest",
+    images: [{ url: "/og-image.png" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Choose Your Class - Music Learning Quest",
+    description:
+      "Discover your favourite ways to learn through a musical quest",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
@@ -33,7 +47,10 @@ export default function RootLayout({
       <body className={`${selawik.variable} antialiased`}>
         <I18nProvider>
           <GameProvider>
-            <HapticsProvider>{children}</HapticsProvider>
+            <HapticsProvider>
+              <BackgroundMusic />
+              {children}
+            </HapticsProvider>
           </GameProvider>
         </I18nProvider>
       </body>
