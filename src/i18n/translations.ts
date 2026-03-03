@@ -70,20 +70,18 @@ export const resources = {
         intro:
           "This quiz is conducted as part of a doctoral course pilot project.",
         studyTitle:
-          "การสำรวจรูปแบบการเรียนรู้ตามทฤษฎีกระบวนการเรียนรู้เชิงประสบการณ์ของเดวิด โคล์บ ผ่านนิทรรศการฐานกิจกรรมเกม: กรณีศึกษางานประชุมวิชาการดนตรีศึกษานานาชาติ พ.ศ. 2569 จุฬาลงกรณ์มหาวิทยาลัย",
+          "An Exploratory Study of Learning Preferences Based on David Kolb’s Experiential Learning Theory: A Case Study of Thailand International Music Education Conference 2026",
+        studyTitleTitle: "Research Title",
         researcher:
           "Chanita Pongtanalert, PhD., Music Education, Division of Music Education, Department of Art, Music, and Dance Education, Faculty of Education, Chulalongkorn University",
-        reviewPrompt:
-          "Before we begin, please review how your information will be handled:",
         voluntaryTitle: "Voluntary Participation & Right to Withdraw:",
         voluntaryBody:
           "Your participation is entirely voluntary. You reserve the right to change your mind, withdraw your consent, and stop playing at any point during the quiz without any penalty.",
         dataTitle: "Data Confidentiality & Retention:",
         dataBody:
           "The researcher adheres to strict data protection protocols. All gameplay data collected will be used anonymously for academic research, kept strictly confidential, and securely destroyed upon the completion of this project. If the researcher wish to utilize this dataset for future studies, separate notification and additional consent will be sought.",
-        contactTitle: "Contact Information:",
-        contactBody:
-          "If you have any questions about this study or your data, please contact the researcher at [Your University Email Address].",
+        contactTitle: "",
+        contactBody: "",
         agreement:
           'By tapping "I AGREE", you confirm that you have read the information above and voluntarily consent to participate.',
         agree: "I AGREE - LET'S PLAY",
@@ -99,80 +97,81 @@ export const resources = {
         progress: "{{current}} / {{total}}",
         q1: {
           question:
-            "When you hear a song you've never heard before, you tend to...",
-          ce: "Let yourself go — absorbing the emotions and atmosphere of the song",
-          ac: "Try to analyze the instruments, rhythm, or chord progressions used in the song",
+            "When hearing a musical piece for the first time, you tend to focus on...",
+          ce: "The overall mood and atmosphere of the music",
+          ac: "The compositional details (e.g., instrumentation, lyrics, or rhythm)",
         },
         q2: {
-          question: 'What is your definition of a "great" piece of music?',
-          ce: "A piece full of emotion that can touch the listener's heart",
-          ac: "A piece with complexity in terms of composition techniques and playing technique",
+          question: 'To you, what defines a "great" piece of music?',
+          ce: "A song rich in emotion that deeply resonates with the listener",
+          ac: "A complex work featuring sophisticated composition and technical skill",
         },
         q3: {
-          question: "If you had to compose a song, you would...",
-          ce: "Hum a melody first, then put that melody into the song",
-          ac: "Plan the main structure first, such as form or chord progression, as a framework",
+          question: "If you were to compose a song, you would...",
+          ce: "Hum a melody first and build the piece around it",
+          ac: "Set a piece structure such as the song structure or chord progressions first",
         },
         q4: {
           question: "How do you tend to memorize intervals?",
-          ce: "By the sound, or by the finger positions on my instrument",
-          ac: "By visualizing the note positions on the staff",
+          ce: "By their sound or the physical feel of singing or playing them",
+          ac: "By visualizing the notes or their positions on the staff",
         },
         q5: {
           question: "When learning about time signatures, you prefer to...",
-          ce: "Listen to examples of songs in that time signature in many different styles",
-          ac: "Learn the theoretical rules for grouping beats in that time signature",
+          ce: "Listen to examples and try to feel the beat yourself",
+          ac: "Study the principles or structure of the meter first",
         },
         q6: {
           question:
-            "In studying music theory, you tend to prefer a teacher who...",
-          ce: "Demonstrates musical examples and organizes activities related to the content, allowing discussion and exchange with classmates",
-          ac: "Provides teaching materials that explain the principles, origins, rules, or formulas for finding answers in the topic being studied",
+            "In a music theory class, you tend to prefer a teacher who...",
+          ce: "Uses musical examples and interactive activities to exchange ideas with classmates",
+          ac: "Provides handouts explaining the principles, rules, or formulas needed to find exact answers",
         },
         q7: {
           question:
-            'You feel you "understand" a piece of music more deeply when you...',
-          ce: "Have absorbed the emotions and atmosphere of the music through performing it yourself",
-          ac: "Know the background, theoretical structure, or reasons behind the composition",
+            'You feel you deeply "understand" a piece of music when you...',
+          ce: "Absorb its mood and atmosphere through your own performance",
+          ac: "Know its background, theoretical structure, or the logic behind the composition",
         },
         q8: {
           question:
-            "You have the chance to try an instrument you've never played before in your life. You would...",
-          ae: "Try playing the instrument by yourself first",
-          ro: "Look for a manual, or ask someone who plays it what keys produce what sounds",
+            "At an instrument exhibition, you encounter an instrument you've never played before. You would...",
+          ae: "Try playing it yourself first to see how it works",
+          ro: "Look for a manual or ask someone to demonstrate how to play it",
         },
         q9: {
-          question: "You make a mistake during sight-reading. You would...",
-          ae: "Start playing again from the beginning immediately",
-          ro: "Pause to think about why you played it wrong, then start again",
+          question:
+            "How do you fix a musical passage that you keep playing incorrectly?",
+          ae: "Repeat the passage multiple times until it is correct",
+          ro: "Identify the cause of the error and consider the proper technique before trying again",
         },
         q10: {
-          question: "How would you approach a rhythmic dictation?",
-          ae: "Start writing down on paper immediately as I hear the sounds",
-          ro: "Listen to the whole thing at least once first to get familiar with the overall structure",
+          question: "When doing a rhythmic dictation, you usually...",
+          ae: "Notate everything you hear first, then correct it later",
+          ro: "Consider the overall structure of the rhythm before you start notating",
         },
         q11: {
           question:
-            "If a teacher asks you to clap the rhythm from the image below, how would you prepare within 30 seconds before performing?",
-          ae: "Tap my foot and try actually clapping — as many times as possible before time runs out",
-          ro: "Look at the time signature, then try subdividing the beats mentally",
+            "You have 30 seconds to prepare for a rhythmic sight-reading. How do you spend that time?",
+          ae: "Physically practice clapping and tapping several times to test for accuracy",
+          ro: "Check the time signature and mentally subdivide the beats before performing",
         },
         q12: {
           question:
-            "Do you take notes when your teacher is giving you a lesson on your major instrument?",
-          ae: "No — but if I do, I only focus on techniques related to playing the instrument",
-          ro: "Yes — I write down various details, including my own practice notes",
+            "When reviewing content from your private instrument lesson, you tend to...",
+          ae: "Experiment with the techniques you observed during the lesson",
+          ro: "Reflect on the details of what you remember before attempting to play",
         },
         q13: {
-          question: "Do you enjoy improvisation?",
-          ae: "Yes — it feels challenging and I get to try things outside the box",
-          ro: "Not really — I enjoy preparing and practicing to play accurately from the score more",
+          question: "When performing improvisation, you tend to...",
+          ae: "Start playing first and adjust based on what happens",
+          ro: "Form a rough melodic outline or structure in your head before you play",
         },
         q14: {
           question:
-            "Your teacher assigns you to interpret a piece you are performing. You would...",
-          ae: "Try playing it in many different ways to find the sound I personally like",
-          ro: "Study the history of the piece, listen to many performers, then decide on my interpretation",
+            "When assigned to interpret a piece of music, you tend to...",
+          ae: "Try playing it in various ways yourself to see what works best",
+          ro: "Research different interpretations and concepts from other musicians before playing",
         },
       },
       results: {
@@ -253,12 +252,11 @@ export const resources = {
         title: "เอกสารแสดงความยินยอม",
         intro:
           "แบบสอบถามนี้เป็นส่วนหนึ่งของการศึกษานำร่องในรายวิชาระดับปริญญาเอก",
+        studyTitleTitle: "ชื่อวิจัย",
         studyTitle:
-          "การสำรวจรูปแบบการเรียนรู้ตามทฤษฎีกระบวนการเรียนรู้เชิงประสบการณ์ของเดวิด โคล์บ ผ่านนิทรรศการฐานกิจกรรมเกม: กรณีศึกษางานประชุมวิชาการดนตรีศึกษานานาชาติ พ.ศ. 2569 จุฬาลงกรณ์มหาวิทยาลัย",
+          "การสำรวจรูปแบบการเรียนรู้ตามทฤษฎีกระบวนการเรียนรู้เชิงประสบการณ์ของเดวิด โคล์บ: กรณีศึกษางานประชุมวิชาการดนตรีศึกษานานาชาติ พ.ศ. 2569 จุฬาลงกรณ์มหาวิทยาลัย",
         researcher:
           "ชณิตา พงษ์ธนเลิศ นิสิตระดับปริญญาเอก สาขาดนตรีศึกษา ภาควิชาศิลปะ ดนตรีและนาฏศิลป์ศึกษา คณะครุศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
-        reviewPrompt:
-          "โดยมีระยะเวลาในการทำแบบสอบถามประมาณ 5-8 นาที\n\nก่อนเริ่มทำแบบทดสอบ ขอทุกท่านทำความเข้าใจเกี่ยวกับการจัดการข้อมูลดังต่อไปนี้",
         voluntaryTitle: "ความสมัครใจและสิทธิ์ในการถอนตัว:",
         voluntaryBody:
           "การเข้าร่วมของท่านเป็นไปโดยความสมัครใจ ท่านมีสิทธิ์ในการซักถามข้อสงสัย เปลี่ยนใจ ยกเลิกความยินยอม และสามารถถอนตัวได้ทุกเมื่อตลอดการเก็บข้อมูล โดยจะไม่มีผลกระทบใด ๆ ทั้งสิ้น",

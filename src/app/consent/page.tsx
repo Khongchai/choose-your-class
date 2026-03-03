@@ -30,7 +30,8 @@ export default function ConsentPage() {
         <div className="w-full bg-cream/80 rounded-lg p-6 sm:p-10 text-dark-brown text-sm sm:text-base leading-relaxed space-y-5 max-h-[55dvh] overflow-y-auto">
           <p>{t("consent.intro")}</p>
           <p>
-            <strong>Study Title:</strong> {t("consent.studyTitle")}
+            <strong>{t("consent.studyTitleTitle")}:</strong>{" "}
+            {t("consent.studyTitle")}
             <br />
             <strong>
               {t("consent.researcher").startsWith("Chanita")
@@ -39,8 +40,6 @@ export default function ConsentPage() {
             </strong>
             {t("consent.researcher")}
           </p>
-          <p className="whitespace-pre-line">{t("consent.reviewPrompt")}</p>
-
           <p>
             <strong>{t("consent.voluntaryTitle")}</strong>{" "}
             {t("consent.voluntaryBody")}
