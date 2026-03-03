@@ -68,7 +68,7 @@ export const resources = {
       consent: {
         title: "Informed Consent Statement",
         intro:
-          "This quiz is conducted as part of a doctoral course pilot project.",
+          "This quiz serves as the pilot study for the doctoral course: Theoretical Application of Music Education.",
         studyTitle:
           "An Exploratory Study of Learning Preferences Based on David Kolb’s Experiential Learning Theory: A Case Study of Thailand International Music Education Conference 2026",
         studyTitleTitle: "Research Title",
@@ -251,7 +251,7 @@ export const resources = {
       consent: {
         title: "เอกสารแสดงความยินยอม",
         intro:
-          "แบบสอบถามนี้เป็นส่วนหนึ่งของการศึกษานำร่องในรายวิชาระดับปริญญาเอก",
+          "แบบสอบถามนี้เป็นส่วนหนึ่งของการศึกษานำร่องในรายวิชาการประยุกต์ใช้ทฤษฎีทางด้านดนตรีศึกษา",
         studyTitleTitle: "ชื่อวิจัย",
         studyTitle:
           "การสำรวจรูปแบบการเรียนรู้ตามทฤษฎีกระบวนการเรียนรู้เชิงประสบการณ์ของเดวิด โคล์บ: กรณีศึกษางานประชุมวิชาการดนตรีศึกษานานาชาติ พ.ศ. 2569 จุฬาลงกรณ์มหาวิทยาลัย",
