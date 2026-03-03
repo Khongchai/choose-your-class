@@ -46,7 +46,7 @@ export default function ProfilePage() {
           <h1 className="text-2xl sm:text-3xl font-bold text-dark-brown">
             {t("profile.title")}
           </h1>
-          <p className="mt-3 text-dark-brown/60 text-sm sm:text-base">
+          <p className="mt-3 text-dark-brown/60 text-sm sm:text-base whitespace-pre">
             {t("profile.subtitle")}
           </p>
         </div>

@@ -39,7 +39,7 @@ export default function SkillLevelPage() {
     <div className="animate-page flex min-h-dvh flex-col items-center justify-center px-6 py-12 sm:py-16">
       <div className="w-full max-w-sm sm:max-w-md flex flex-col items-center gap-8 sm:gap-10">
         {/* Info text */}
-        <p className="text-dark-brown/60 text-sm sm:text-base text-center leading-relaxed">
+        <p className="text-dark-brown/60 text-sm sm:text-base text-center leading-relaxed whitespace-pre">
           {t("shared.infoText")}
         </p>
 

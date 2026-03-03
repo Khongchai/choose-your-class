@@ -3,7 +3,7 @@ export const resources = {
     translation: {
       home: {
         play: "Play",
-        duration: "Quiz takes approximately 5–8 minutes",
+        duration: "Quiz takes approximately 3-5 minutes",
       },
       profile: {
         title: "Create a Player Profile",
@@ -18,7 +18,7 @@ export const resources = {
       },
       shared: {
         infoText:
-          "To balance the game and help our research, please provide your real information below. This information remains completely anonymous.",
+          "To balance the game and help our research, \nplease provide your real information below. \nThis information remains completely anonymous.",
         next: "Next",
       },
       gender: {
@@ -186,12 +186,12 @@ export const resources = {
       home: {
         subtitle: "เข้าสู่เควสดนตรีเพื่อค้นพบ\nวิธีการเรียนรู้ที่คุณชื่นชอบ",
         play: "เล่น",
-        duration: "แบบทดสอบใช้เวลาประมาณ 5–8 นาที",
+        duration: "แบบทดสอบใช้เวลาประมาณ 3-5 นาที",
       },
       profile: {
         title: "สร้างตัวละคร",
         subtitle:
-          "สามารถใช้ชื่อเล่นหรือนามแฝงได้ ไม่จำเป็นต้องใช้ชื่อ นามสกุลจริง",
+          "สามารถใช้ชื่อเล่นหรือนามแฝงได้ \nไม่จำเป็นต้องใช้ชื่อ นามสกุลจริง",
         inputLabel: "ใส่ชื่อของคุณ",
         placeholder: "ใส่ชื่อของคุณ",
         confirm: "ยืนยัน",
@@ -202,7 +202,7 @@ export const resources = {
       },
       shared: {
         infoText:
-          "ในส่วนนี้ เพื่อช่วยนักวิจัยของเรา ขอความกรุณาท่านใส่ข้อมูลที่เป็นความจริง โดยข้อมูลเหล่านี้จะถูกเก็บเป็นความลับและไม่ระบุตัวตน",
+          "ในส่วนนี้ เพื่อช่วยนักวิจัยของเรา \nขอความกรุณาท่านใส่ข้อมูลที่เป็นความจริง \nโดยข้อมูลเหล่านี้จะถูกเก็บเป็นความลับและไม่ระบุตัวตน",
         next: "ถัดไป",
       },
       gender: {
