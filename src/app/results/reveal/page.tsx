@@ -145,17 +145,6 @@ function XYChart({
       {/* Tick marks */}
       {ticks}
 
-      {/* Axis end labels with metric names */}
-      <text
-        x={-AXIS_LEN - 10}
-        y={4}
-        textAnchor="middle"
-        fontSize={14}
-        fontWeight={700}
-        fill="#29191A"
-      >
-        -7
-      </text>
       <text
         x={-AXIS_LEN - 10}
         y={16}
@@ -169,17 +158,7 @@ function XYChart({
 
       <text
         x={AXIS_LEN + 10}
-        y={4}
-        textAnchor="middle"
-        fontSize={14}
-        fontWeight={700}
-        fill="#29191A"
-      >
-        7
-      </text>
-      <text
-        x={AXIS_LEN + 10}
-        y={16}
+        y={2}
         textAnchor="middle"
         fontSize={8}
         fill="#29191A"
@@ -188,16 +167,6 @@ function XYChart({
         RO
       </text>
 
-      <text
-        x={0}
-        y={-AXIS_LEN - 14}
-        textAnchor="middle"
-        fontSize={14}
-        fontWeight={700}
-        fill="#29191A"
-      >
-        7
-      </text>
       <text
         x={0}
         y={-AXIS_LEN - 4}
@@ -209,16 +178,6 @@ function XYChart({
         CE
       </text>
 
-      <text
-        x={0}
-        y={AXIS_LEN + 16}
-        textAnchor="middle"
-        fontSize={14}
-        fontWeight={700}
-        fill="#29191A"
-      >
-        -7
-      </text>
       <text
         x={0}
         y={AXIS_LEN + 26}
@@ -307,10 +266,11 @@ export default function RevealPage() {
         <div
           className="absolute"
           style={{
-            top: "53.06%",
-            left: "48.11%",
+            top: "55.9%",
+            left: "46.11%",
             width: "50.74%",
             height: "17.78%",
+            scale: 1.4,
           }}
         >
           <XYChart
