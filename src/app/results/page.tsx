@@ -9,10 +9,10 @@ import { useTranslation } from "react-i18next";
 type CharacterClass = "warrior" | "druid" | "alchemist" | "mage";
 
 const silhouettes: Record<CharacterClass, string> = {
-  warrior: "/sillhouettes/warrior1.png",
-  druid: "/sillhouettes/druid1.png",
-  alchemist: "/sillhouettes/alchemist1.png",
-  mage: "/sillhouettes/mage1.png",
+  warrior: "/sillhouettes/warrior1.webp",
+  druid: "/sillhouettes/druid1.webp",
+  alchemist: "/sillhouettes/alchemist1.webp",
+  mage: "/sillhouettes/mage1.webp",
 };
 
 function computeCharacterClass(

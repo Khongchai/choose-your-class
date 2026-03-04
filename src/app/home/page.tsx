@@ -11,36 +11,39 @@ const classes = [
     id: "warrior",
     label: "Warrior",
     image: [
-      "/sillhouettes/warrior1.png",
-      "/sillhouettes/warrior2.png",
+      "/sillhouettes/warrior1.webp",
+      "/sillhouettes/warrior2.webp",
     ] as ImageTuple,
   },
   {
     id: "druid",
     label: "Druid",
     image: [
-      "/sillhouettes/druid1.png",
-      "/sillhouettes/druid2.png",
+      "/sillhouettes/druid1.webp",
+      "/sillhouettes/druid2.webp",
     ] as ImageTuple,
   },
   {
     id: "mage",
     label: "Mage",
-    image: ["/sillhouettes/mage1.png", "/sillhouettes/mage2.png"] as ImageTuple,
+    image: [
+      "/sillhouettes/mage1.webp",
+      "/sillhouettes/mage2.webp",
+    ] as ImageTuple,
   },
   {
     id: "alchemist",
     label: "Alchemist",
     image: [
-      "/sillhouettes/alchemist1.png",
-      "/sillhouettes/alchemist2.png",
+      "/sillhouettes/alchemist1.webp",
+      "/sillhouettes/alchemist2.webp",
     ] as ImageTuple,
   },
 ];
 
 const chooseYourClassText = [
-  "/sillhouettes/cyc_1.png",
-  "/sillhouettes/cyc_2.png",
+  "/sillhouettes/cyc_1.webp",
+  "/sillhouettes/cyc_2.webp",
 ] as ImageTuple;
 
 export default function ChooseClass() {
