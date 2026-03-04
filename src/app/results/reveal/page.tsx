@@ -11,17 +11,17 @@ const INTRINSIC_HEIGHT = 1440;
 type CharacterClass = "warrior" | "druid" | "alchemist" | "mage";
 
 const resultImagesEng: Record<CharacterClass, string> = {
-  warrior: "/results/Warrior_ENG.png",
-  druid: "/results/Druids_ENG.png",
-  alchemist: "/results/Alchemist_ENG.png",
-  mage: "/results/Mage_ENG.png",
+  warrior: "/results/Warrior_ENG.webp",
+  druid: "/results/Druids_ENG.webp",
+  alchemist: "/results/Alchemist_ENG.webp",
+  mage: "/results/Mage_ENG.webp",
 };
 
 const resultImagesTh: Record<CharacterClass, string> = {
-  warrior: "/results/Warrior_TH.png",
-  druid: "/results/Druids_TH.png",
-  alchemist: "/results/Alchemist_TH.png",
-  mage: "/results/Mage_TH.png",
+  warrior: "/results/Warrior_TH.webp",
+  druid: "/results/Druids_TH.webp",
+  alchemist: "/results/Alchemist_TH.webp",
+  mage: "/results/Mage_TH.webp",
 };
 
 function computeCharacterClass(
