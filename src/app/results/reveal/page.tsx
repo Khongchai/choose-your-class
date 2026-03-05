@@ -1,9 +1,11 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useGame } from "@/context/GameContext";
 import { toPng } from "html-to-image";
 import { useCallback, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const INTRINSIC_WIDTH = 1080;
 const INTRINSIC_HEIGHT = 1440;
@@ -197,6 +199,7 @@ function XYChart({
 
 export default function RevealPage() {
   const { state } = useGame();
+  const { t } = useTranslation();
   const imgRef = useRef<HTMLImageElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -298,6 +301,13 @@ export default function RevealPage() {
         </svg>
         Save
       </button>
+
+      <a
+        href="/"
+        className="mb-6 flex items-center gap-2 bg-dark-brown text-peach rounded-lg px-8 py-3 text-sm sm:text-base font-medium hover:bg-dark-brown/85 transition-colors cursor-pointer"
+      >
+        {t("results.playAgain")}
+      </a>
     </div>
   );
 }
