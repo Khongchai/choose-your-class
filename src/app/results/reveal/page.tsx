@@ -3,8 +3,7 @@
 "use client";
 
 import { useGame } from "@/context/GameContext";
-import { toPng } from "html-to-image";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const INTRINSIC_WIDTH = 1080;
@@ -60,148 +59,103 @@ const CLASS_LABELS: Record<CharacterClass, string> = {
   mage: "Mage",
 };
 
-function XYChart({
-  ce,
-  ac,
-  ae,
-  ro,
-  showStats,
-}: {
-  ce: number;
-  ac: number;
-  ae: number;
-  ro: number;
-  showStats: boolean;
-}) {
+function drawChartOnCanvas(
+  ctx: CanvasRenderingContext2D,
+  stats: { ce: number; ac: number; ae: number; ro: number },
+  showStats: boolean,
+) {
   const RANGE = 7;
   const AXIS_LEN = 100;
-  const unit = AXIS_LEN / RANGE;
   const TICK = 3;
+  const unit = AXIS_LEN / RANGE;
+  const COLOR = "#29191A";
 
-  // Dot: x = RO - AE, y = CE - AC (SVG y is inverted)
-  const dotX = (ro - ae) * unit;
-  const dotY = -(ce - ac) * unit;
+  // Chart overlay position matching the CSS percentages + scale
+  const containerX = 0.4611 * INTRINSIC_WIDTH;
+  const containerY = 0.563 * INTRINSIC_HEIGHT;
+  const containerW = 0.5074 * INTRINSIC_WIDTH;
+  const containerH = 0.1778 * INTRINSIC_HEIGHT;
+  const SCALE = 1.4;
 
-  // Radar-style polygon vertices: CE=up, RO=right, AC=down, AE=left
-  const poly = [
-    `0,${-ce * unit}`,
-    `${ro * unit},0`,
-    `0,${ac * unit}`,
-    `${-ae * unit},0`,
-  ].join(" ");
+  const centerX = containerX + containerW / 2;
+  const centerY = containerY + containerH / 2;
 
-  const ticks: React.ReactNode[] = [];
+  // SVG viewBox is 260×260, fit by min dimension (meet), then scaled
+  const chartSide = Math.min(containerW, containerH) * SCALE;
+  const s = chartSide / 260;
+
+  const sx = (v: number) => centerX + v * s;
+  const sy = (v: number) => centerY + v * s;
+
+  // Radar polygon
+  if (showStats) {
+    const { ce, ac, ae, ro } = stats;
+    ctx.beginPath();
+    ctx.moveTo(sx(0), sy(-ce * unit));
+    ctx.lineTo(sx(ro * unit), sy(0));
+    ctx.lineTo(sx(0), sy(ac * unit));
+    ctx.lineTo(sx(-ae * unit), sy(0));
+    ctx.closePath();
+    ctx.fillStyle = COLOR;
+    ctx.globalAlpha = 0.3;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  // Axes
+  ctx.strokeStyle = COLOR;
+  ctx.lineWidth = 2 * s;
+  ctx.beginPath();
+  ctx.moveTo(sx(-AXIS_LEN), sy(0));
+  ctx.lineTo(sx(AXIS_LEN), sy(0));
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(sx(0), sy(-AXIS_LEN));
+  ctx.lineTo(sx(0), sy(AXIS_LEN));
+  ctx.stroke();
+
+  // Tick marks
+  ctx.lineWidth = 1.5 * s;
   for (let i = -RANGE; i <= RANGE; i++) {
     if (i === 0) continue;
     const p = i * unit;
-    ticks.push(
-      <line
-        key={`xt${i}`}
-        x1={p}
-        y1={-TICK}
-        x2={p}
-        y2={TICK}
-        stroke="#29191A"
-        strokeWidth={1.5}
-      />,
-      <line
-        key={`yt${i}`}
-        x1={-TICK}
-        y1={p}
-        x2={TICK}
-        y2={p}
-        stroke="#29191A"
-        strokeWidth={1.5}
-      />,
-    );
+    ctx.beginPath();
+    ctx.moveTo(sx(p), sy(-TICK));
+    ctx.lineTo(sx(p), sy(TICK));
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(sx(-TICK), sy(p));
+    ctx.lineTo(sx(TICK), sy(p));
+    ctx.stroke();
   }
 
-  return (
-    <svg
-      viewBox="-130 -130 260 260"
-      preserveAspectRatio="xMidYMid meet"
-      width="100%"
-      height="100%"
-    >
-      {/* Radar polygon fill at 30% opacity */}
-      {showStats && <polygon points={poly} fill="#29191A" fillOpacity={0.3} />}
+  // Labels
+  ctx.fillStyle = COLOR;
+  ctx.font = `bold ${Math.round(14 * s)}px sans-serif`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("AE", sx(-AXIS_LEN - 15), sy(0));
+  ctx.fillText("RO", sx(AXIS_LEN + 15), sy(0));
+  ctx.textBaseline = "bottom";
+  ctx.fillText("CE", sx(0), sy(-AXIS_LEN - 4));
+  ctx.textBaseline = "top";
+  ctx.fillText("AC", sx(0), sy(AXIS_LEN + 4));
 
-      {/* Axes */}
-      <line
-        x1={-AXIS_LEN}
-        y1={0}
-        x2={AXIS_LEN}
-        y2={0}
-        stroke="#29191A"
-        strokeWidth={2}
-      />
-      <line
-        x1={0}
-        y1={-AXIS_LEN}
-        x2={0}
-        y2={AXIS_LEN}
-        stroke="#29191A"
-        strokeWidth={2}
-      />
-
-      {/* Tick marks */}
-      {ticks}
-
-      <text
-        x={-AXIS_LEN - 15}
-        y={5}
-        textAnchor="middle"
-        fontSize={14}
-        fontWeight={700}
-        fill="#29191A"
-      >
-        AE
-      </text>
-
-      <text
-        x={AXIS_LEN + 15}
-        y={4}
-        textAnchor="middle"
-        fontSize={14}
-        fontWeight={700}
-        fill="#29191A"
-      >
-        RO
-      </text>
-
-      <text
-        x={0}
-        y={-AXIS_LEN - 4}
-        textAnchor="middle"
-        fontSize={14}
-        fontWeight={700}
-        fill="#29191A"
-      >
-        CE
-      </text>
-
-      <text
-        x={0}
-        y={AXIS_LEN + 14}
-        textAnchor="middle"
-        fontSize={14}
-        fontWeight={700}
-        fill="#29191A"
-      >
-        AC
-      </text>
-
-      {/* Data dot */}
-      {showStats && <circle cx={dotX} cy={dotY} r={5} fill="#29191A" />}
-    </svg>
-  );
+  // Data dot
+  if (showStats) {
+    const { ce, ac, ae, ro } = stats;
+    const dotX = (ro - ae) * unit;
+    const dotY = -(ce - ac) * unit;
+    ctx.beginPath();
+    ctx.arc(sx(dotX), sy(dotY), 5 * s, 0, Math.PI * 2);
+    ctx.fillStyle = COLOR;
+    ctx.fill();
+  }
 }
 
 export default function RevealPage() {
   const { state } = useGame();
   const { t } = useTranslation();
-  const imgRef = useRef<HTMLImageElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const characterClass = useMemo(
     () => computeCharacterClass(state.selfAssessmentAnswers),
@@ -221,20 +175,30 @@ export default function RevealPage() {
     state.language === "th" ? resultImagesTh : resultImagesEng;
   const imageSrc = resultImages[viewedClass];
 
-  const handleSave = useCallback(async () => {
-    if (!wrapperRef.current) return;
+  const [compositeUrl, setCompositeUrl] = useState<string | null>(null);
 
-    const dataUrl = await toPng(wrapperRef.current, {
-      canvasWidth: INTRINSIC_WIDTH,
-      canvasHeight: INTRINSIC_HEIGHT,
-      pixelRatio: 1,
-    });
+  useEffect(() => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = INTRINSIC_WIDTH;
+      canvas.height = INTRINSIC_HEIGHT;
+      const ctx = canvas.getContext("2d")!;
+      ctx.drawImage(img, 0, 0, INTRINSIC_WIDTH, INTRINSIC_HEIGHT);
+      drawChartOnCanvas(ctx, stats, isOwnResult);
+      setCompositeUrl(canvas.toDataURL("image/png"));
+    };
+    img.src = imageSrc;
+  }, [imageSrc, stats, isOwnResult]);
 
+  const handleSave = useCallback(() => {
+    if (!compositeUrl) return;
     const a = document.createElement("a");
-    a.href = dataUrl;
+    a.href = compositeUrl;
     a.download = `result-${viewedClass}.png`;
     a.click();
-  }, [viewedClass]);
+  }, [compositeUrl, viewedClass]);
 
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center">
@@ -256,34 +220,15 @@ export default function RevealPage() {
         ))}
       </div>
 
-      {/* Image + chart overlay wrapper */}
-      <div ref={wrapperRef} className="relative w-full px-2 max-w-150">
-        <img
-          ref={imgRef}
-          src={imageSrc}
-          alt={`${CLASS_LABELS[viewedClass]} result`}
-          className="w-full h-auto"
-        />
-
-        {/* X-Y chart overlay — positioned over "Character Stats" box */}
-        <div
-          className="absolute"
-          style={{
-            top: "56.3%",
-            left: "46.11%",
-            width: "50.74%",
-            height: "17.78%",
-            scale: 1.4,
-          }}
-        >
-          <XYChart
-            ce={stats.ce}
-            ac={stats.ac}
-            ae={stats.ae}
-            ro={stats.ro}
-            showStats={isOwnResult}
+      {/* Composited image with chart baked in */}
+      <div className="w-full px-2 max-w-150">
+        {compositeUrl && (
+          <img
+            src={compositeUrl}
+            alt={`${CLASS_LABELS[viewedClass]} result`}
+            className="w-full h-auto"
           />
-        </div>
+        )}
       </div>
 
       <button
