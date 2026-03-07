@@ -53,8 +53,12 @@ export default function InstrumentPage() {
 
         {/* Input */}
         <div className="flex flex-col items-center gap-4 w-full">
-          <label className="text-dark-brown/70 text-base sm:text-lg">
+          <label className="text-dark-brown/70 text-base sm:text-lg text-center">
             {t("instrument.label")}
+            <br />
+            <span className="text-sm sm:text-base opacity-70">
+              {t("instrument.labelHint")}
+            </span>
           </label>
           <input
             type="text"

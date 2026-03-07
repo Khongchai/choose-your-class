@@ -39,7 +39,8 @@ export const resources = {
       instrument: {
         title: "Equipped Gear",
         subtitle: "(Your Major Instrument)",
-        label: "Choose your ONE primary instrument:",
+        label: "Choose your ONE primary instrument",
+        labelHint: '(Put "none" if you are not a musician)',
         placeholder: "Type your main instrument here...",
         errorEmpty: "Please enter your instrument",
         errorInvalid: "Letters only (Thai or English)",
@@ -225,6 +226,7 @@ export const resources = {
         title: "อุปกรณ์คู่กาย",
         subtitle: "(เครื่องมือเอก)",
         label: "ระบุเครื่องมือเอกได้เพียง 1 ชิ้น:",
+        labelHint: "(ถ้าไม่มีเครื่องดนตรีให้ใส่ว่าไม่มี)",
         placeholder: "พิมพ์เครื่องมือเอกของคุณที่นี่...",
         errorEmpty: "กรุณาระบุเครื่องมือเอก",
         errorInvalid: "ใช้ได้เฉพาะตัวอักษร (ไทยหรืออังกฤษ)",
